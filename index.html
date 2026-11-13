@@ -188,7 +188,7 @@ function setTheme(name) {                        // e.g. "green-wednesday"; empt
   cls.forEach(c => document.body.classList.remove(c));
   if (want) document.body.classList.add(want);
 }
-setTheme("green-wednesday");
+setTheme("");
 const SECONDS = 14, PER = 4;                     // a new block every 14 s
 const TITLES = { flower: ["Flower", "Premium buds"], prerolls: ["Prerolls", "Singles & packs"], vapes: ["Vapes", "& concentrates"] };
 const money = c => "$" + (c % 100 ? (c / 100).toFixed(2) : (c / 100));
