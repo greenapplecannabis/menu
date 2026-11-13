@@ -129,6 +129,9 @@ body { margin: 0; background: #050607; color: var(--ink); font-family: var(--bod
 @keyframes tick { from { transform: translateX(0) } to { transform: translateX(var(--tw)) } }
 @keyframes glow { from { transform: translateX(-2600px) } to { transform: translateX(5760px) } }
 .track, .glow { backface-visibility: hidden; }
+.ticker { will-change: transform; transform: translateZ(0); contain: layout paint; }
+.screen { contain: layout paint; }
+.card { will-change: opacity, transform; }
 @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
 </style>
 
@@ -172,6 +175,13 @@ function cardHTML(it) {
 function fitNames(root) {
   root.querySelectorAll('.name').forEach(el => { let f = 50; el.style.fontSize = f + 'px'; while (el.scrollWidth > el.clientWidth + 1 && f > 28) { f -= 2; el.style.fontSize = f + 'px'; } });
 }
+const photoCache = {};
+function preloadPhotos() {
+  ["flower", "prerolls", "vapes"].forEach(c => DATA[c].forEach(it => {
+    if (!it.img || photoCache[it.img]) return;
+    const im = new Image(); im.src = it.img; photoCache[it.img] = im; im.decode?.().catch(() => {});
+  }));
+}
 function pages(cat) { return Math.ceil(DATA[cat].length / PER); }
 function render(i, p) {
   const scr = screens[i], cat = scr.dataset.cat, n = pages(cat);
@@ -208,9 +218,21 @@ function measureTrack() {
 }
 // On the TVs the ticker and glow run as CSS animations (smooth even on a Fire stick), started at the
 // right point of the shared clock. They are re-aimed every few minutes in case a clock was corrected.
+let tickAnim = null, glowAnim = null;
 function startCssMotion() {
   if (!trackW) return;
-  const now = clock() / 1000, period = trackW / tickSpeed;
+  const period = trackW / tickSpeed;
+  if (track.animate && document.timeline) {
+    // Web Animations: pin each animation's start to an exact moment, so a busy frame can't delay it
+    tickAnim?.cancel(); glowAnim?.cancel();
+    tickAnim = track.animate([{ transform: "translateX(0)" }, { transform: `translateX(${-trackW}px)` }], { duration: period * 1000, iterations: Infinity });
+    glowAnim = glowEl.animate([{ transform: "translateX(-2600px)" }, { transform: "translateX(5760px)" }], { duration: LOOP * 1000, iterations: Infinity });
+    const p0 = performance.now(), sec = clock() / 1000;
+    tickAnim.startTime = p0 - (sec % period) * 1000;
+    glowAnim.startTime = p0 - (sec % LOOP) * 1000;
+    return;
+  }
+  const now = clock() / 1000;
   track.style.setProperty("--tw", -trackW + "px");
   track.style.animation = "none"; glowEl.style.animation = "none"; void track.offsetWidth;
   track.style.animation = `tick ${period}s linear ${-(now % period)}s infinite`;
@@ -263,7 +285,7 @@ async function refresh() {
     lastSig = sig;
     DATA.flower = d.flower; DATA.prerolls = d.prerolls; DATA.vapes = d.vapes;
     shown.fill(-1);
-    setTicker(d.ticker); trackW = 0; measureTrack();
+    preloadPhotos(); setTicker(d.ticker); trackW = 0; measureTrack();
   } catch (e) {}
 }
 setInterval(refresh, 180000);
@@ -271,25 +293,38 @@ setInterval(refresh, 180000);
 // Read the web server's clock instead: fire quick requests until the server's "Date" second ticks over,
 // which pins the server time to within a few hundredths of a second.
 let OFFSET = 0;
-function clock() { return Date.now() + OFFSET; }
+let NUDGE = 0;
+function clock() { return Date.now() + OFFSET - NUDGE; }
+// Each response says the server's time to the second. The server's clock at the moment it answered lies
+// in [S, S+1000) and that moment lies between our send (a) and receive (b), so the offset lies in
+// [S - b, S + 1000 - a]. Intersecting many such windows, taken at varied moments, narrows it to a few ms.
 async function syncClock() {
   if (window.CAPTURE || location.protocol === "file:") return;
-  let prev = null;
-  for (let n = 0; n < 40; n++) {
-    const t0 = Date.now();
-    let r; try { r = await fetch("data.json?c=" + t0 + n, { method: "HEAD", cache: "no-store" }); } catch (e) { return; }
-    const t1 = Date.now(), d = r.headers.get("date");
-    if (!d) return;
-    const s = Date.parse(d);
-    if (prev && s > prev.s) {                          // the second ticked between the two requests
-      const tick = (prev.t1 + t0) / 2;                 // local time of the tick (best estimate)
-      const off = s - tick;
-      if (t0 - prev.t1 < 400) { const changed = Math.abs(off - OFFSET) > 40; OFFSET = off; if (changed) { shown.fill(-1); startCssMotion(); } return; }
-    }
-    prev = { s, t1 };
+  let lo = -Infinity, hi = Infinity, got = 0;
+  const now = () => performance.timeOrigin + performance.now();
+  for (let n = 0; n < 60 && (hi - lo > 15 || got < 8); n++) {
+    const a = now();
+    let r; try { r = await fetch("data.json?c=" + Math.round(a) + "-" + n, { method: "HEAD", cache: "no-store" }); } catch (e) { break; }
+    const b = now(), d = r.headers.get("date");
+    if (!d) break;
+    const S = Date.parse(d);
+    const nlo = Math.max(lo, S - b), nhi = Math.min(hi, S + 1000 - a);
+    if (nlo > nhi) { lo = S - b; hi = S + 1000 - a; got = 1; continue; }   // inconsistent sample: start over
+    lo = nlo; hi = nhi; got++;
+    // aim the next request at the predicted second boundary, where a sample narrows the window the most
+    const mid = (lo + hi) / 2, serverNow = now() + mid, untilTick = 1000 - (serverNow % 1000);
+    const rtt = b - a, wait = untilTick - rtt / 2 + (n % 2 ? 6 : -6);
+    if (wait > 0 && wait < 1100) await new Promise(res => setTimeout(res, wait));
   }
+  if (got < 2 || !isFinite(lo) || !isFinite(hi)) return;
+  const off = (lo + hi) / 2;                         // server time = performance time + off
+  const drift = (performance.timeOrigin + performance.now()) - Date.now();
+  const newOffset = off + drift;
+  const changed = Math.abs(newOffset - OFFSET) > 15;
+  OFFSET = newOffset; window.syncInfo = { lo, hi, width: hi - lo, got };
+  if (changed) { shown.fill(-1); startCssMotion(); }
 }
-syncClock(); setInterval(syncClock, 600000);
+preloadPhotos(); syncClock(); setInterval(syncClock, 600000);
 setInterval(() => { if (!window.CAPTURE) startCssMotion(); }, 300000);
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { trackW = 0; measureTrack(); });
 window.step = step; window.trackInfo = () => ({ trackW, tickSpeed });
@@ -298,8 +333,12 @@ if (!window.CAPTURE) { const loop = () => { step(clock() / 1000); requestAnimati
 
 // scaling: no hash = preview of all three; #left/#center/#right = that TV's third, full screen
 const SLOT = { "#left": 0, "#center": 1, "#right": 2 };
+// "#left" etc. picks the TV; an optional "+120" / "-80" after it shifts that TV's timing by that many ms
 function fit() {
-  const k = SLOT[location.hash];
+  const m = location.hash.match(/^(#[a-z]+)([+-]\d+)?$/) || [];
+  const k = SLOT[m[1]];
+  const nudge = m[2] ? +m[2] : 0;
+  if (nudge !== NUDGE) { NUDGE = nudge; shown.fill(-1); startCssMotion(); }
   const single = k !== undefined;
   document.body.classList.toggle("single", single);
   ONLY = single ? k : -1;
