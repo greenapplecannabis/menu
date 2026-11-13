@@ -130,6 +130,9 @@ body { margin: 0; background: #050607; color: var(--ink); font-family: var(--bod
 .note { position: fixed; left: max(14px, env(safe-area-inset-left, 0px)); top: max(10px, env(safe-area-inset-top, 0px)); color: var(--muted); font-size: 13px; z-index: 20; background: rgba(5,6,7,.85); padding: 4px 8px; border-radius: 6px; }
 .note a { color: var(--green); }
 .single .note { display: none; }
+@keyframes tick { from { transform: translateX(0) } to { transform: translateX(var(--tw)) } }
+@keyframes glow { from { transform: translateX(-2600px) } to { transform: translateX(5760px) } }
+.track, .glow { backface-visibility: hidden; }
 @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
 </style>
 
@@ -200,10 +203,29 @@ const track = document.getElementById("track");
 function setTicker(list) { track.innerHTML = [...list, ...list, ...list, ...list].map(x => `<span class="it">${x}</span><i class="sep"></i>`).join(""); }
 setTicker(TICKER);
 let trackW = 0, tickSpeed = 120;
+// Ticker speed: a whole number of passes per 168 s loop, so every TV agrees on where the text is.
+function measureTrack() {
+  const w = track.scrollWidth / 4;
+  if (!w) return;
+  trackW = w; tickSpeed = Math.max(1, Math.round(LOOP * 120 / trackW)) * trackW / LOOP;
+  if (!window.CAPTURE) startCssMotion();
+}
+// On the TVs the ticker and glow run as CSS animations (smooth even on a Fire stick), started at the
+// right point of the shared clock. They are re-aimed every few minutes in case a clock was corrected.
+function startCssMotion() {
+  if (!trackW) return;
+  const now = clock() / 1000, period = trackW / tickSpeed;
+  track.style.setProperty("--tw", -trackW + "px");
+  track.style.animation = "none"; glowEl.style.animation = "none"; void track.offsetWidth;
+  track.style.animation = `tick ${period}s linear ${-(now % period)}s infinite`;
+  glowEl.style.animation = `glow ${LOOP}s linear ${-(now % LOOP)}s infinite`;
+}
 const glowEl = document.getElementById("glow");
 
+let ONLY = -1;                                        // on a single TV, only that screen is drawn
 function step(t) {
   screens.forEach((scr, i) => {
+    if (ONLY >= 0 && i !== ONLY) return;
     const ti = t - crossAt(i);
     const p = turnsAt(ti + OUT) % pages(scr.dataset.cat);    // switch content at the bottom of the fade-out
     if (p !== shown[i]) { render(i, p); shown[i] = p; }
@@ -222,9 +244,11 @@ function step(t) {
     });
     const dots = scr.querySelector(".dots"); if (dots) dots.style.opacity = "";
   });
-  if (!trackW) { trackW = track.scrollWidth / 4; if (trackW) tickSpeed = Math.round(LOOP * 120 / trackW) * trackW / LOOP; }
-  if (trackW) track.style.transform = `translateX(${-((t * tickSpeed) % trackW)}px)`;
-  glowEl.style.transform = `translateX(${(((t % LOOP) / LOOP) * 8360) - 2600}px)`;
+  if (!trackW) measureTrack();
+  if (window.CAPTURE) {                                // video export: position everything from t
+    if (trackW) track.style.transform = `translateX(${-((t * tickSpeed) % trackW)}px)`;
+    glowEl.style.transform = `translateX(${(((t % LOOP) / LOOP) * 8360) - 2600}px)`;
+  }
   const into0 = t - Math.floor(t / SECONDS) * SECONDS;
   return into0 > SECONDS - OUT - 0.05 || into0 < 2 * WAVE + 3 * STAG + IN + 0.05;
 }
@@ -243,13 +267,38 @@ async function refresh() {
     lastSig = sig;
     DATA.flower = d.flower; DATA.prerolls = d.prerolls; DATA.vapes = d.vapes;
     shown.fill(-1);
-    setTicker(d.ticker); trackW = 0;
+    setTicker(d.ticker); trackW = 0; measureTrack();
   } catch (e) {}
 }
 setInterval(refresh, 180000);
+// Shared clock. Each Fire stick's own clock can be off by a second or more, which pulls the TVs apart.
+// Read the web server's clock instead: fire quick requests until the server's "Date" second ticks over,
+// which pins the server time to within a few hundredths of a second.
+let OFFSET = 0;
+function clock() { return Date.now() + OFFSET; }
+async function syncClock() {
+  if (window.CAPTURE || location.protocol === "file:") return;
+  let prev = null;
+  for (let n = 0; n < 40; n++) {
+    const t0 = Date.now();
+    let r; try { r = await fetch("data.json?c=" + t0 + n, { method: "HEAD", cache: "no-store" }); } catch (e) { return; }
+    const t1 = Date.now(), d = r.headers.get("date");
+    if (!d) return;
+    const s = Date.parse(d);
+    if (prev && s > prev.s) {                          // the second ticked between the two requests
+      const tick = (prev.t1 + t0) / 2;                 // local time of the tick (best estimate)
+      const off = s - tick;
+      if (t0 - prev.t1 < 400) { const changed = Math.abs(off - OFFSET) > 40; OFFSET = off; if (changed) { shown.fill(-1); startCssMotion(); } return; }
+    }
+    prev = { s, t1 };
+  }
+}
+syncClock(); setInterval(syncClock, 600000);
+setInterval(() => { if (!window.CAPTURE) startCssMotion(); }, 300000);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { trackW = 0; measureTrack(); });
 window.step = step; window.trackInfo = () => ({ trackW, tickSpeed });
 if (window.CAPTURE) document.body.classList.add('capture');
-if (!window.CAPTURE) { const loop = () => { step(Date.now() / 1000); requestAnimationFrame(loop); }; requestAnimationFrame(loop); }
+if (!window.CAPTURE) { const loop = () => { step(clock() / 1000); requestAnimationFrame(loop); }; requestAnimationFrame(loop); }
 
 // scaling: no hash = preview of all three; #left/#center/#right = that TV's third, full screen
 const SLOT = { "#left": 0, "#center": 1, "#right": 2 };
@@ -257,6 +306,8 @@ function fit() {
   const k = SLOT[location.hash];
   const single = k !== undefined;
   document.body.classList.toggle("single", single);
+  ONLY = single ? k : -1;
+  screens.forEach((s, i) => s.style.display = single && i !== k ? "none" : "");
   const w = innerWidth, h = innerHeight;
   const W = single ? 1920 : 5760;
   const s = Math.min(w / W, h / 1080);
