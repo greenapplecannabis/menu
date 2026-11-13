@@ -41,7 +41,8 @@ Rules, in order:
 4. Skip samples, display units, $0 items, accessories, and non-cannabis products.
 5. **Ticker** (`ticker` array, HTML allowed: `<b>NN% OFF</b> what`) → one line per active
    customer-facing deal, short and plain, like the existing lines. Remove lines for ended deals.
-Change nothing else (layout, titles, wording of untouched items).
+Change nothing else (layout, titles, wording of untouched items). Keep the `theme` value exactly as it is
+(e.g. "green-wednesday" or ""); only the owner switches themes.
 
 ## 4. Render and publish (only if something changed)
 - `python3 kit/render.py kit index.html` (validates the data, writes index.html and data.json).
