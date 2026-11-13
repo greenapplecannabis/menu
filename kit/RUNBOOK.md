@@ -42,7 +42,7 @@ Rules, in order:
 5. **Ticker** (`ticker` array, HTML allowed: `<b>NN% OFF</b> what`) → one line per active
    customer-facing deal, short and plain, like the existing lines. Remove lines for ended deals.
 Change nothing else (layout, titles, wording of untouched items). Keep the `theme` value exactly as it is
-(e.g. "green-wednesday" or ""); only the owner switches themes.
+(e.g. "green-wednesday" or ""); only the owner switches themes. Likewise keep `bezel` (the gap between TVs) as is.
 
 ## 4. Render and publish (only if something changed)
 - `python3 kit/render.py kit index.html` (validates the data, writes index.html and data.json).

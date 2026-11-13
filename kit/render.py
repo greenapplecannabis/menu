@@ -16,11 +16,12 @@ assert isinstance(d['ticker'], list)
 data = {c: d[c] for c in ('flower', 'prerolls', 'vapes')}
 build = hashlib.sha1(t.encode('utf-8')).hexdigest()[:10]   # changes only when the design (template) changes
 theme = d.get('theme') or ''
-html = t.replace('__BUILD__', build).replace('__THEME__', json.dumps(theme)).replace('__DATA__', json.dumps(data)).replace('__TICKER__', json.dumps(d['ticker'], ensure_ascii=False))
+bezel = d.get('bezel', 40)
+html = t.replace('__BUILD__', build).replace('__THEME__', json.dumps(theme)).replace('__BEZEL__', json.dumps(bezel)).replace('__DATA__', json.dumps(data)).replace('__TICKER__', json.dumps(d['ticker'], ensure_ascii=False))
 if not html.lstrip().lower().startswith('<!doctype'):
     html = ('<!doctype html>\n<html lang="en"><head><meta charset="utf-8">\n'
             '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">\n'
             '</head><body>\n' + html + '\n</body></html>\n')
 open(out, 'w', encoding='utf-8').write(html)
-json.dump({**data, 'ticker': d['ticker'], 'theme': theme, 'build': build}, open(os.path.join(os.path.dirname(os.path.abspath(out)), 'data.json'), 'w', encoding='utf-8'), ensure_ascii=False)
+json.dump({**data, 'ticker': d['ticker'], 'theme': theme, 'bezel': bezel, 'build': build}, open(os.path.join(os.path.dirname(os.path.abspath(out)), 'data.json'), 'w', encoding='utf-8'), ensure_ascii=False)
 print('ok', {c: len(d[c]) for c in data}, len(d['ticker']), 'ticker lines')

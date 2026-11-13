@@ -109,7 +109,7 @@ body { margin: 0; background: #050607; color: var(--ink); font-family: var(--bod
 .leaf svg { width: 100%; height: 100%; display: block; }
 
 /* deals ticker running along the bottom of all three TVs */
-.ticker { position: absolute; left: 0; right: 0; bottom: 0; height: 104px; background: linear-gradient(180deg, #0c1a10, #08130b); border-top: 3px solid var(--green); z-index: 4; overflow: hidden; }
+.ticker { position: absolute; left: 0; right: -400px; bottom: 0; height: 104px; background: linear-gradient(180deg, #0c1a10, #08130b); border-top: 3px solid var(--green); z-index: 4; overflow: hidden; }
 .ticker .track { position: absolute; top: 0; height: 100%; display: flex; align-items: center; white-space: nowrap; will-change: transform; }
 .ticker .it { font-family: var(--display); font-weight: 800; font-size: 46px; color: var(--ink); padding: 0 34px; letter-spacing: .5px; }
 .ticker .it b { color: var(--gold); font-weight: 900; }
@@ -185,6 +185,9 @@ function setTheme(name) {                        // e.g. "green-wednesday"; empt
   if (want) document.body.classList.add(want);
 }
 setTheme(__THEME__);
+// Gap between neighbouring TVs (bezels + spacing), in menu pixels (1920 = one TV's width).
+// The ticker on each TV is shifted by it so letters "travel" across the gap instead of jumping it.
+let BEZEL = __BEZEL__;
 const SECONDS = 14, PER = 4;                     // a new block every 14 s
 const TITLES = { flower: ["Flower", "Premium buds"], prerolls: ["Prerolls", "Singles & packs"], vapes: ["Vapes", "& concentrates"] };
 const money = c => "$" + (c % 100 ? (c / 100).toFixed(2) : (c / 100));
@@ -339,6 +342,7 @@ async function refresh() {
     if (!d.flower || !d.prerolls || !d.vapes || !d.ticker) return;
     if (d.build && d.build !== BUILD) { location.reload(); return; }   // page design changed: load the new one
     setTheme(d.theme);
+    if (typeof d.bezel === "number" && d.bezel !== BEZEL) { BEZEL = d.bezel; fit(); }
     const sig = JSON.stringify({ flower: d.flower, prerolls: d.prerolls, vapes: d.vapes, ticker: d.ticker });
     if (sig === lastSig) return;
     lastSig = sig;
@@ -401,6 +405,8 @@ function fit() {
   const single = k !== undefined;
   document.body.classList.toggle("single", single);
   ONLY = single ? k : -1;
+  const tk = stage.querySelector(".ticker");
+  tk.style.transform = single && !window.CAPTURE ? `translateX(${-k * BEZEL}px) translateZ(0)` : "";
   screens.forEach((s, i) => s.style.display = single && i !== k ? "none" : "");
   const w = innerWidth, h = innerHeight;
   const W = single ? 1920 : 5760;
