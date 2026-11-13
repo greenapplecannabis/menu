@@ -136,6 +136,7 @@ body { margin: 0; background: #050607; color: var(--ink); font-family: var(--bod
 .ticker { will-change: transform; transform: translateZ(0); contain: layout paint; }
 .screen { contain: layout paint; }
 .card { will-change: opacity, transform; }
+.cards.off { opacity: 0.001; pointer-events: none; }
 @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
 </style>
 
@@ -161,6 +162,7 @@ const money = c => "$" + (c % 100 ? (c / 100).toFixed(2) : (c / 100));
 const stage = document.getElementById("stage");
 const screens = [...stage.querySelectorAll(".screen")];
 const shown = screens.map(() => -1);
+let DATA_VERSION = 1;
 
 function cardHTML(it) {
   if (!it) return '<article class="card empty"></article>';
@@ -187,15 +189,35 @@ function preloadPhotos() {
   }));
 }
 function pages(cat) { return Math.ceil(DATA[cat].length / PER); }
-function render(i, p) {
-  const scr = screens[i], cat = scr.dataset.cat, n = pages(cat);
+// Each screen keeps its title and logo; the cards live in two stacked layers. The next page is drawn
+// into the hidden layer a few seconds early, so a page turn is just a swap of which layer shows.
+const built = screens.map(() => -1);          // which page is drawn in each screen's hidden layer
+function frame(i) {
+  const scr = screens[i];
+  if (scr.dataset.built === String(DATA_VERSION)) return scr;
+  const cat = scr.dataset.cat;
+  scr.innerHTML = `<div class="head"><h2>${TITLES[cat][0]}<small>${TITLES[cat][1]}</small></h2>
+    ${i === 1 ? '<img class="logo" src="img/logo.png" alt="Green Apple Cannabis">' : ""}
+    <div class="dots"></div></div><div class="cards on"></div><div class="cards off"></div>`;
+  scr.dataset.built = String(DATA_VERSION); built[i] = -1; shown[i] = -1;
+  return scr;
+}
+function fill(el, cat, p) {
   const items = DATA[cat].slice(p * PER, p * PER + PER);
   while (items.length < PER) items.push(null);
-  const html = `<div class="head"><h2>${TITLES[cat][0]}<small>${TITLES[cat][1]}</small></h2>
-    ${i === 1 ? '<img class="logo" src="img/logo.png" alt="Green Apple Cannabis">' : ""}
-    <div class="dots">${Array.from({ length: n }, (_, k) => `<i class="${k === p ? "on" : ""}"></i>`).join("")}</div></div>
-    <div class="cards">${items.map(cardHTML).join("")}</div>`;
-  scr.innerHTML = html; fitNames(scr);
+  el.innerHTML = items.map(cardHTML).join(""); fitNames(el);
+}
+function prepare(i, p) {                       // draw page p into the hidden layer ahead of time
+  const scr = frame(i);
+  if (built[i] === p) return;
+  fill(scr.querySelector(".cards.off"), scr.dataset.cat, p); built[i] = p;
+}
+function render(i, p) {                        // show page p now
+  const scr = frame(i), cat = scr.dataset.cat, n = pages(cat);
+  if (built[i] !== p) prepare(i, p);
+  const on = scr.querySelector(".cards.on"), off = scr.querySelector(".cards.off");
+  on.className = "cards off"; off.className = "cards on"; built[i] = -1;
+  scr.querySelector(".dots").innerHTML = Array.from({ length: n }, (_, k) => `<i class="${k === p ? "on" : ""}"></i>`).join("");
 }
 
 // Everything is a pure function of time t (seconds), so the three TV videos match frame for frame.
@@ -253,7 +275,8 @@ function step(t) {
     if (p !== shown[i]) { render(i, p); shown[i] = p; }
     const into = ti + OUT - Math.floor((ti + OUT) / SECONDS) * SECONDS;   // seconds since this screen switched
     const toOut = SECONDS - into;                                           // seconds until next switch
-    scr.querySelectorAll(".card").forEach((c, k) => {
+    if (!window.CAPTURE && toOut < 3 && toOut > OUT + 0.1) prepare(i, (p + 1) % pages(scr.dataset.cat));
+    scr.querySelectorAll(".cards.on .card").forEach((c, k) => {
       if (toOut < OUT + (3 - k) * 0) {
         const a = clamp(toOut / OUT);
         c.style.opacity = a; c.style.transform = `translateY(${-10 * (1 - a)}px)`;
@@ -288,7 +311,7 @@ async function refresh() {
     if (sig === lastSig) return;
     lastSig = sig;
     DATA.flower = d.flower; DATA.prerolls = d.prerolls; DATA.vapes = d.vapes;
-    shown.fill(-1);
+    shown.fill(-1); DATA_VERSION++;
     preloadPhotos(); setTicker(d.ticker); trackW = 0; measureTrack();
   } catch (e) {}
 }
