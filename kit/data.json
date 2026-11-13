@@ -55,6 +55,24 @@
    ]
   },
   {
+   "n": "Cap Junky",
+   "b": "Campfire Cannabis",
+   "t": "Hybrid",
+   "thc": 24.84,
+   "fl": "Menthol \u2022 Gas \u2022 Pine",
+   "ef": "Potent \u2022 Relaxed \u2022 Calm",
+   "img": "img/flower-runtz.jpg",
+   "chip": null,
+   "badge": null,
+   "sizes": [
+    {
+     "l": "7g",
+     "p": 10200,
+     "s": null
+    }
+   ]
+  },
+  {
    "n": "Fog Dog",
    "b": "Northpark Cannabis Co.",
    "t": "Indica",
@@ -200,6 +218,11 @@
      "l": "3.5g",
      "p": 5500,
      "s": 4400
+    },
+    {
+     "l": "7g",
+     "p": 9500,
+     "s": 7600
     }
    ]
   },
@@ -217,6 +240,11 @@
     {
      "l": "3.5g",
      "p": 5000,
+     "s": null
+    },
+    {
+     "l": "7g",
+     "p": 8900,
      "s": null
     }
    ]
@@ -236,6 +264,29 @@
      "l": "3.5g",
      "p": 5200,
      "s": 4420
+    }
+   ]
+  },
+  {
+   "n": "The Soap",
+   "b": "Campfire Cannabis",
+   "t": "Sativa Dom. Hybrid",
+   "thc": 20.2,
+   "fl": "Sour Citrus \u2022 Pine \u2022 Diesel",
+   "ef": "Uplifted \u2022 Energetic \u2022 Happy",
+   "img": "img/flower-runtz.jpg",
+   "chip": null,
+   "badge": null,
+   "sizes": [
+    {
+     "l": "3.5g",
+     "p": 4900,
+     "s": null
+    },
+    {
+     "l": "7g",
+     "p": 8900,
+     "s": null
     }
    ]
   },
@@ -596,6 +647,24 @@
    ]
   },
   {
+   "n": "Dabbalicious",
+   "b": "Stargaze",
+   "t": "Indica",
+   "thc": null,
+   "fl": "Bubblegum \u2022 Fruit \u2022 Pine",
+   "ef": "Relaxed \u2022 Calm \u2022 Happy",
+   "img": "img/placeholder.jpg",
+   "chip": "1G DISPOSABLE",
+   "badge": null,
+   "sizes": [
+    {
+     "l": "1g",
+     "p": 7499,
+     "s": null
+    }
+   ]
+  },
+  {
    "n": "Pineapple Express",
    "b": "Northpark",
    "t": "Sativa Dom. Hybrid",
@@ -743,7 +812,7 @@
  "ticker": [
   "<b>15% OFF</b> Block Party \u00b7 Cap Junky \u00b7 Sunset Tea \u00b7 Gummibears \u00b7 Froot by the Foot",
   "<b>40% OFF</b> Fog Dog 3-pack prerolls",
-  "<b>20% OFF</b> Purple Octane 3.5g",
+  "<b>20% OFF</b> Purple Octane 3.5g & 7g",
   "<b>15% OFF</b> Float prepacked chillums",
   "<b>20% OFF</b> Lumi, Nothing But Canna & North hemp edibles",
   "<b>20% OFF</b> Cycling Frog gummies",
