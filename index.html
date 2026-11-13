@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head><body>
+<title>Green Apple Menu Wall</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Inter:wght@500;600;700&display=swap">
+<style>
+/* Layout: one continuous 5760×1080 stage = three 1920×1080 TVs side by side (Vapes | Prerolls | Flower).
+   Preview (no #): all three to scale with simulated TV bezels.
+   #left / #center / #right: one TV's third, full screen, for a Fire stick on that TV.
+   All timing comes from the wall clock, so three separate sticks stay in step. */
+:root {
+  --bg: #111517;
+  --panel: #1A2024;
+  --line: #2A3238;
+  --ink: #F4F6F1;
+  --muted: #9AA6A0;
+  --green: #8DC63F;
+  --sale: #FF8A1F;
+  --gold: #F5B82E;
+  --indica: #A98BFF;
+  --sativa: #FF9F43;
+  --hybrid: #8DC63F;
+  --display: "Archivo", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+  --body: "Inter", "Segoe UI", Arial, sans-serif;
+  color-scheme: dark;
+}
+html, body { height: 100%; }
+body { margin: 0; background: #050607; color: var(--ink); font-family: var(--body); overflow: hidden;
+  padding-left: max(0px, env(safe-area-inset-left, 0px)); padding-right: max(0px, env(safe-area-inset-right, 0px)); }
+
+.viewport { position: fixed; inset: 0; display: grid; place-items: center; }
+.stage { position: absolute; left: 0; top: 0; width: 5760px; height: 1080px; transform-origin: 0 0;
+  background: radial-gradient(1400px 700px at 50% -10%, #1d2a22 0%, var(--bg) 60%); overflow: hidden; }
+
+/* screens */
+.screen { position: absolute; top: 0; width: 1920px; height: 1080px; }
+.screen.s0 { left: 0 } .screen.s1 { left: 1920px } .screen.s2 { left: 3840px }
+.head { position: absolute; left: 90px; right: 90px; top: 54px; height: 120px; display: flex; align-items: center; justify-content: space-between; }
+.head h2 { margin: 0; font-family: var(--display); font-weight: 900; font-size: 96px; letter-spacing: 6px; line-height: 1; text-transform: uppercase; }
+.head h2 small { display: block; font-family: var(--body); font-size: 26px; letter-spacing: 6px; color: var(--green); font-weight: 700; margin-top: 10px; }
+.dots { display: flex; gap: 14px; }
+.dots i { width: 18px; height: 18px; border-radius: 50%; background: var(--line); display: block; transition: background .4s; }
+.dots i.on { background: var(--green); }
+.logo { height: 132px; }
+
+.cards { position: absolute; left: 80px; right: 80px; top: 196px; bottom: 136px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+.card { background: linear-gradient(180deg, #1D2428 0%, var(--panel) 100%); border: 2px solid var(--line); border-radius: 26px; padding: 18px 18px 20px; box-shadow: 0 18px 40px rgba(0,0,0,.35); display: flex; flex-direction: column; min-width: 0;
+}
+.card.empty { visibility: hidden; }
+.ph { position: relative; height: 300px; background: #fff; border-radius: 18px; overflow: hidden; display: grid; place-items: center; }
+.ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.badge { position: absolute; left: 12px; top: 12px; background: var(--sale); color: #fff; font-family: var(--display); font-weight: 800; font-size: 28px; padding: 5px 14px; border-radius: 10px; letter-spacing: .5px; box-shadow: 0 6px 16px rgba(0,0,0,.25); }
+.chip { position: absolute; right: 10px; bottom: 10px; background: #111517; color: var(--green); font-weight: 700; font-size: 20px; letter-spacing: 2px; padding: 5px 10px; border-radius: 8px; }
+.name { font-family: var(--display); font-weight: 800; font-size: 50px; line-height: 1.02; margin-top: 8px; letter-spacing: -.5px;
+  white-space: nowrap; overflow: hidden; }
+.meta { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; gap: 10px; }
+.type { --c: var(--hybrid); color: var(--c); border: 2px solid var(--c); background: color-mix(in srgb, var(--c) 14%, transparent);
+  font-weight: 700; font-size: 21px; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; white-space: nowrap; }
+.type.indica { --c: var(--indica) } .type.sativa { --c: var(--sativa) }
+.thc { font-family: var(--display); font-weight: 800; font-size: 30px; color: var(--ink); white-space: nowrap; }
+.thc small { font-family: var(--body); font-size: 18px; color: var(--muted); font-weight: 700; letter-spacing: 2px; margin-right: 6px; }
+.lbl { font-size: 18px; font-weight: 700; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; margin-top: 14px; }
+.taste { font-size: 27px; line-height: 1.25; color: var(--ink); margin-top: 4px; font-weight: 500; }
+.feel { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 7px; }
+.feel span { font-size: 23px; font-weight: 600; color: #DDE9CF; background: #263023; border: 1px solid #34452F; padding: 3px 11px; border-radius: 8px; }
+.price { margin-top: auto; border-top: 2px solid var(--line); padding-top: 10px; display: grid; gap: 4px; }
+.row { display: flex; justify-content: space-between; align-items: baseline; font-size: 26px; color: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; }
+.row .v { display: flex; gap: 14px; align-items: baseline; }
+.row s { font-size: 24px; }
+.row .p { font-family: var(--display); font-weight: 900; font-size: 54px; color: var(--green); line-height: 1.05; }
+.row .p.sale { color: var(--sale); }
+.price.two .row .p { font-size: 42px; }
+.price.two .row { font-size: 23px; }
+.price.two { gap: 0; }
+
+/* the sweep: a banner that travels across all three screens */
+.sweep { position: absolute; top: 420px; left: 0; height: 240px; width: 2600px; transform: translateX(-2700px);
+  background: linear-gradient(90deg, rgba(141,198,63,0) 0%, var(--green) 14%, var(--green) 86%, rgba(141,198,63,0) 100%);
+  display: flex; align-items: center; justify-content: center; gap: 46px; color: #0e1a0a; pointer-events: none; z-index: 5; }
+.sweep .big { font-family: var(--display); font-weight: 900; font-size: 128px; letter-spacing: 2px; white-space: nowrap; }
+.sweep .sm { font-weight: 700; font-size: 40px; white-space: nowrap; line-height: 1.2; }
+.stage.dim .cards { opacity: .25; transition: opacity .6s; }
+.cards { transition: opacity .6s; }
+
+
+/* page change: cards flip in behind the light bar */
+.card { transform-origin: 50% 50%; }
+.bar { position: absolute; top: -40px; bottom: -40px; width: 340px; left: 0; z-index: 7; pointer-events: none; transform: translateX(-600px);
+  background: linear-gradient(90deg, rgba(141,198,63,0) 0%, rgba(141,198,63,.55) 35%, #f6ffe6 50%, rgba(141,198,63,.55) 65%, rgba(141,198,63,0) 100%);
+  filter: blur(6px); mix-blend-mode: screen; }
+.bar::after { content: ""; position: absolute; inset: 0 150px; background: #fff; filter: blur(10px); opacity: .9; }
+
+/* full-wall ad */
+.ad { position: absolute; inset: 0; z-index: 8; pointer-events: none; overflow: hidden; clip-path: inset(0 100% 0 0);
+  background: radial-gradient(900px 600px at 15% 30%, #1f6a2e 0%, rgba(11,36,22,0) 70%), radial-gradient(1100px 700px at 85% 70%, #2a7d34 0%, rgba(11,36,22,0) 70%), #0B2416; }
+.ad .rule { position: absolute; left: 0; right: 0; height: 14px; background: var(--gold); }
+.ad .rule.t { top: 0 } .ad .rule.b { bottom: 0 }
+.ad .blk { position: absolute; top: 0; height: 1080px; width: 1920px; display: flex; flex-direction: column; justify-content: center; padding: 0 140px; box-sizing: border-box; }
+.ad .b0 { left: 0 } .ad .b1 { left: 1920px; align-items: center; text-align: center } .ad .b2 { left: 3840px; align-items: flex-end; text-align: right }
+.ad .word { font-family: var(--display); font-weight: 900; line-height: .86; letter-spacing: -6px; text-transform: uppercase; }
+.ad .b0 .word { font-size: 360px; color: var(--green); }
+.ad .b1 .word { font-size: 250px; color: #F4F6F1; }
+.ad .kicker { font-family: var(--body); font-weight: 700; font-size: 44px; letter-spacing: 14px; color: var(--gold); text-transform: uppercase; margin-bottom: 26px; }
+.ad .date { font-family: var(--display); font-weight: 900; font-size: 230px; line-height: .9; color: var(--gold); letter-spacing: -4px; }
+.ad .sub { font-family: var(--body); font-weight: 700; font-size: 58px; color: #F4F6F1; margin-top: 26px; line-height: 1.15; }
+.ad .tag { margin-top: 40px; display: inline-block; border: 4px solid var(--gold); color: var(--gold); border-radius: 18px; padding: 14px 30px; font-family: var(--display); font-weight: 800; font-size: 46px; letter-spacing: 3px; }
+.ad .logoBig { height: 230px; margin-top: 46px; }
+.ad .anim { will-change: transform, opacity; }
+.leaf { position: absolute; left: 0; top: 0; width: 90px; height: 90px; will-change: transform; }
+.leaf svg { width: 100%; height: 100%; display: block; }
+
+/* deals ticker running along the bottom of all three TVs */
+.ticker { position: absolute; left: 0; right: 0; bottom: 0; height: 104px; background: linear-gradient(180deg, #0c1a10, #08130b); border-top: 3px solid var(--green); z-index: 4; overflow: hidden; }
+.ticker .track { position: absolute; top: 0; height: 100%; display: flex; align-items: center; white-space: nowrap; will-change: transform; }
+.ticker .it { font-family: var(--display); font-weight: 800; font-size: 46px; color: var(--ink); padding: 0 34px; letter-spacing: .5px; }
+.ticker .it b { color: var(--gold); font-weight: 900; }
+.ticker .sep { width: 20px; height: 20px; transform: rotate(45deg); background: var(--green); flex: none; }
+.glow { position: absolute; top: -300px; width: 2600px; height: 1700px; left: 0; z-index: 0; pointer-events: none; will-change: transform;
+  background: radial-gradient(closest-side, rgba(141,198,63,.16), rgba(141,198,63,0)); }
+.screen { z-index: 1; }
+
+/* simulated bezels for the preview */
+.capture .bezel, .capture .note { display: none; }
+.bezel { position: absolute; top: 0; bottom: 0; width: 28px; background: #000; z-index: 9; }
+.bezel.a { left: 1906px } .bezel.b { left: 3826px }
+.single .bezel { display: none; }
+.note { position: fixed; left: max(14px, env(safe-area-inset-left, 0px)); top: max(10px, env(safe-area-inset-top, 0px)); color: var(--muted); font-size: 13px; z-index: 20; background: rgba(5,6,7,.85); padding: 4px 8px; border-radius: 6px; }
+.note a { color: var(--green); }
+.single .note { display: none; }
+@media (prefers-reduced-motion: reduce) { .card { transition: none; } }
+</style>
+
+<div class="viewport" id="vp">
+  <div class="stage" id="stage">
+    <div class="glow" id="glow"></div>
+    <section class="screen s0" data-cat="vapes"></section>
+    <section class="screen s1" data-cat="prerolls"></section>
+    <section class="screen s2" data-cat="flower"></section>
+    <div class="ticker"><div class="track" id="track"></div></div>
+    <div class="bezel a"></div><div class="bezel b"></div>
+    
+  </div>
+</div>
+<div class="note">Preview of all 3 TVs. On the TVs, open this link ending in <a href="#left">#left</a> (Vapes), <a href="#center">#center</a> (Prerolls) or <a href="#right">#right</a> (Flower).</div>
+
+<script>
+const DATA = {"flower": [{"n": "Block Party", "b": "Redwood County Weed Management", "t": "Hybrid", "thc": 20.1, "fl": "Diesel \u2022 Pepper \u2022 Clove", "ef": "Balanced \u2022 Social \u2022 Happy", "img": "img/flower-block-party.jpg", "chip": null, "badge": "15% OFF", "sizes": [{"l": "3.5g", "p": 5200, "s": 4420}]}, {"n": "Bumper OG", "b": "Minny Grown", "t": "Hybrid", "thc": 20.8, "fl": "Lemon \u2022 Pine \u2022 Fuel", "ef": "Balanced \u2022 Relaxed \u2022 Happy", "img": "img/flower-bumper-og.jpg", "chip": null, "badge": null, "sizes": [{"l": "3.5g", "p": 5600, "s": null}]}, {"n": "Cap Junky", "b": "Redwood County Weed Management", "t": "Hybrid", "thc": 18.8, "fl": "Mint \u2022 Gas \u2022 Pine", "ef": "Relaxed \u2022 Calm \u2022 Heavy", "img": "img/flower-cap-junky.jpg", "chip": null, "badge": "15% OFF", "sizes": [{"l": "3.5g", "p": 5200, "s": 4420}]}, {"n": "Fog Dog", "b": "Northpark Cannabis Co.", "t": "Indica", "thc": 15.721, "fl": "Earthy \u2022 Pine \u2022 Diesel", "ef": "Relaxed \u2022 Calm \u2022 Sleepy", "img": "img/flower-fog-dog.jpg", "chip": null, "badge": null, "sizes": [{"l": "3.5g", "p": 4100, "s": null}]}, {"n": "Froot by the Foot", "b": "Mischief Premium", "t": "Indica Dom. Hybrid", "thc": 15.8, "fl": "Candy \u2022 Fruit \u2022 Sour Citrus", "ef": "Relaxed \u2022 Calm \u2022 Happy", "img": "img/flower-froot-by-the-foot.jpg", "chip": null, "badge": "15% OFF", "sizes": [{"l": "3.5g", "p": 4900, "s": 4165}]}, {"n": "Gastro Pop", "b": "Redwood County Weed Management", "t": "Hybrid", "thc": 21.3, "fl": "Grape \u2022 Citrus \u2022 Gas", "ef": "Happy \u2022 Relaxed \u2022 Euphoric", "img": "img/flower-gastro-pop.jpg", "chip": null, "badge": null, "sizes": [{"l": "3.5g", "p": 5200, "s": null}]}, {"n": "Giraffe P", "b": "Float Cannabis", "t": "Indica", "thc": 17.36, "fl": "Apricot \u2022 Creamy \u2022 Diesel", "ef": "Happy \u2022 Relaxed \u2022 Euphoric", "img": "img/flower-giraffe-p.jpg", "chip": null, "badge": "15% OFF CHILLUM", "sizes": [{"l": "3.5g", "p": 5500, "s": null}, {"l": ".75g Chillum", "p": 2900, "s": 2465}]}, {"n": "Gummibears", "b": "Mischief Premium", "t": "Hybrid", "thc": 15.4, "fl": "Candy \u2022 Lemon \u2022 Orange Zest", "ef": "Happy \u2022 Uplifting \u2022 Creative", "img": "img/flower-gummibears.jpg", "chip": null, "badge": "15% OFF", "sizes": [{"l": "3.5g", "p": 4900, "s": 4165}]}, {"n": "Hippie Crasher", "b": "Float Cannabis", "t": "Indica", "thc": 20.96, "fl": "Mint \u2022 Vanilla \u2022 Funky", "ef": "Tingly \u2022 Relaxed \u2022 Euphoric", "img": "img/flower-hippie-crasher.jpg", "chip": null, "badge": null, "sizes": [{"l": "3.5g", "p": 5600, "s": null}]}, {"n": "Magic Marker", "b": "Float Cannabis", "t": "Indica Dom. Hybrid", "thc": 23.494, "fl": "Gas \u2022 Fruity \u2022 Dank", "ef": "Happy \u2022 Euphoric \u2022 Talkative", "img": "img/flower-magic-marker.jpg", "chip": null, "badge": null, "sizes": [{"l": "3.5g", "p": 5600, "s": null}]}, {"n": "Purple Octane", "b": "Campfire Cannabis", "t": "Indica Dom. Hybrid", "thc": 18.1, "fl": "Grape \u2022 Diesel \u2022 Pepper", "ef": "Euphoric \u2022 Relaxed \u2022 Sleepy", "img": "img/flower-purple-octane.jpg", "chip": null, "badge": "20% OFF", "sizes": [{"l": "3.5g", "p": 5500, "s": 4400}]}, {"n": "Runtz", "b": "Campfire Cannabis", "t": "Hybrid", "thc": 19.4, "fl": "Citrus \u2022 Berry \u2022 Pineapple", "ef": "Euphoric \u2022 Calm \u2022 Relaxed", "img": "img/flower-runtz.jpg", "chip": null, "badge": null, "sizes": [{"l": "3.5g", "p": 5000, "s": null}]}, {"n": "Sunset Tea", "b": "Redwood County Weed Management", "t": "Hybrid", "thc": 19.8, "fl": "Lemon \u2022 Honey \u2022 Earthy", "ef": "Balanced \u2022 Relaxing \u2022 Mellow", "img": "img/flower-sunset-tea.jpg", "chip": null, "badge": "15% OFF", "sizes": [{"l": "3.5g", "p": 5200, "s": 4420}]}, {"n": "Toad Venom", "b": "Float Cannabis", "t": "Indica", "thc": 17.053, "fl": "Diesel \u2022 Mint \u2022 Earthy", "ef": "Relaxed \u2022 Euphoric \u2022 Happy", "img": "img/flower-toad-venom.jpg", "chip": null, "badge": "15% OFF CHILLUM", "sizes": [{"l": "3.5g", "p": 5500, "s": null}, {"l": ".75g Chillum", "p": 2900, "s": 2465}]}, {"n": "Turtle Taffy", "b": "Northpark Cannabis Co.", "t": "Hybrid", "thc": 15.8, "fl": "Sweet \u2022 Creamy \u2022 Gassy", "ef": "Happy \u2022 Relaxed \u2022 Euphoric", "img": "img/flower-turtle-taffy.jpg", "chip": null, "badge": null, "sizes": [{"l": "3.5g", "p": 4100, "s": null}]}, {"n": "Zesty Parm", "b": "Minny Grown", "t": "Sativa", "thc": 20.6, "fl": "Citrus Zest \u2022 Cheese \u2022 Spice", "ef": "Euphoric \u2022 Focused \u2022 Relaxed", "img": "img/flower-zesty-parm.jpg", "chip": null, "badge": null, "sizes": [{"l": "3.5g", "p": 5600, "s": null}]}], "prerolls": [{"n": "Block Party", "b": "Redwood County Weed Management", "t": "Hybrid", "thc": 16.9, "fl": "Fruity \u2022 Gas \u2022 Pine", "ef": "Balanced \u2022 Social \u2022 Happy", "img": "img/prerolls-block-party.jpg", "chip": null, "badge": null, "sizes": [{"l": "1g", "p": 1400, "s": null}]}, {"n": "Bumper OG", "b": "Minny Grown", "t": "Hybrid", "thc": 18.7, "fl": "Cakey \u2022 Sweet \u2022 Tart", "ef": "Uplifted \u2022 Happy \u2022 Clear", "img": "img/prerolls-bumper-og-2-pack.jpg", "chip": "2-PACK", "badge": null, "sizes": [{"l": "2-Pack 1.5g", "p": 2300, "s": null}]}, {"n": "Fog Dog", "b": "Northpark Cannabis Co.", "t": "Indica", "thc": 15.425, "fl": "Earthy \u2022 Pine \u2022 Diesel", "ef": "Relaxed \u2022 Calm \u2022 Sleepy", "img": "img/prerolls-fog-dog.jpg", "chip": null, "badge": "40% OFF", "sizes": [{"l": "3-Pack 3g", "p": 4000, "s": 2400}]}, {"n": "Franken Pine", "b": "Minny Grown", "t": "Hybrid", "thc": 26.0, "fl": "Pine \u2022 Zest \u2022 Savory Spice", "ef": "Relaxed \u2022 Calm \u2022 Mellow", "img": "img/prerolls-franken-pine-2-pack.jpg", "chip": "2-PACK", "badge": null, "sizes": [{"l": "2-Pack 1.5g", "p": 2300, "s": null}]}, {"n": "Gastro Pop", "b": "Redwood County Weed Management", "t": "Hybrid", "thc": 16.4, "fl": "Grape \u2022 Citrus \u2022 Gas", "ef": "Happy \u2022 Relaxed \u2022 Euphoric", "img": "img/prerolls-gastro-pop.jpg", "chip": null, "badge": null, "sizes": [{"l": "1g", "p": 1400, "s": null}]}, {"n": "Glitter Bomb", "b": "Float Cannabis", "t": "Indica Dom. Hybrid", "thc": 28.18, "fl": "Berry \u2022 Grape \u2022 Gas", "ef": "Euphoric \u2022 Relaxed \u2022 Calm", "img": "img/prerolls-glitter-bomb-5-pack-tin.jpg", "chip": "5-PACK TIN", "badge": null, "sizes": [{"l": "5-Pack 2.5g", "p": 4200, "s": null}]}, {"n": "Gorilla Zkittlez", "b": "Float Cannabis", "t": "Hybrid", "thc": 23.438, "fl": "Fruity \u2022 Sweet \u2022 Earthy", "ef": "Giggly \u2022 Hungry \u2022 Sleepy", "img": "img/prerolls-gorilla-zkittlez-1g-preroll.jpg", "chip": "1G PREROLL", "badge": null, "sizes": [{"l": "1g", "p": 1500, "s": null}]}, {"n": "Gov. Oranges Alpha", "b": "Fl\u00f6r", "t": "Hybrid", "thc": 10.4, "fl": "Orange \u2022 Citrus \u2022 Earthy", "ef": "Uplifting \u2022 Happy \u2022 Relaxed", "img": "img/prerolls-gov-oranges-alpha.jpg", "chip": null, "badge": null, "sizes": [{"l": ".35g", "p": 900, "s": null}]}, {"n": "Gov. Oranges Sour", "b": "Fl\u00f6r", "t": "Hybrid", "thc": 11.8, "fl": "Sour Orange \u2022 Citrus \u2022 Diesel", "ef": "Euphoric \u2022 Happy \u2022 Relaxed", "img": "img/prerolls-gov-oranges-sour.jpg", "chip": null, "badge": null, "sizes": [{"l": "2-Pack .7g", "p": 1500, "s": null}]}, {"n": "Green Diesel", "b": "Float Cannabis", "t": "Hybrid", "thc": 23.106, "fl": "Fuel \u2022 Pine \u2022 Citrus", "ef": "Euphoric \u2022 Focused \u2022 Relaxed", "img": "img/prerolls-green-diesel-5-pack-tin.jpg", "chip": "5-PACK TIN", "badge": null, "sizes": [{"l": "5-Pack 2.5g", "p": 4200, "s": null}]}, {"n": "Lemon Fresh", "b": "Float Cannabis", "t": "Sativa Dom. Hybrid", "thc": 20.259, "fl": "Lemon \u2022 Diesel \u2022 Zesty", "ef": "Energetic \u2022 Creative \u2022 Uplifted", "img": "img/prerolls-lemon-fresh-1g-preroll.jpg", "chip": "1G PREROLL", "badge": null, "sizes": [{"l": "1g", "p": 1500, "s": null}]}, {"n": "Night Hawk", "b": "Minny Grown", "t": "Indica Dom. Hybrid", "thc": 18.7, "fl": "Citrus \u2022 Zest \u2022 Forest Pine", "ef": "Relaxed \u2022 Calm \u2022 Body Relief", "img": "img/prerolls-night-hawk-2-pack.jpg", "chip": "2-PACK", "badge": null, "sizes": [{"l": "2-Pack 1.5g", "p": 2300, "s": null}]}, {"n": "Turtle Taffy", "b": "Fl\u00f6r", "t": "Indica", "thc": 14.8, "fl": "Sweet \u2022 Creamy \u2022 Gassy", "ef": "Happy \u2022 Relaxed \u2022 Euphoric", "img": "img/prerolls-turtle-taffy.jpg", "chip": null, "badge": null, "sizes": [{"l": "2-Pack .7g", "p": 1500, "s": null}, {"l": "8-Pack 2.8g", "p": 5000, "s": null}]}, {"n": "Zesty Parm", "b": "Minny Grown", "t": "Sativa", "thc": 21.9, "fl": "Floral \u2022 Herbal \u2022 Cheese", "ef": "Energized \u2022 Uplifted \u2022 Clear", "img": "img/prerolls-zesty-parm-2-pack.jpg", "chip": "2-PACK", "badge": null, "sizes": [{"l": "2-Pack 1.5g", "p": 2300, "s": null}]}], "vapes": [{"n": "OG Kush", "b": "Northpark", "t": "Hybrid", "thc": 82.23, "fl": "Pine \u2022 Lemon \u2022 Fuel", "ef": "Relaxed \u2022 Euphoric \u2022 Uplifted", "img": "img/vapes-og-kush-1g-cart.jpg", "chip": "1G CART", "badge": null, "sizes": [{"l": "1g", "p": 6999, "s": null}]}, {"n": "Super Sour Diesel", "b": "Northpark", "t": "Sativa", "thc": 79.248, "fl": "Diesel \u2022 Pungent \u2022 Fuel", "ef": "Energetic \u2022 Creative \u2022 Clear", "img": "img/vapes-super-sour-diesel-1g-cart.jpg", "chip": "1G CART", "badge": null, "sizes": [{"l": "1g", "p": 6999, "s": null}]}, {"n": "Trainwreck", "b": "Northpark", "t": "Sativa", "thc": 79.37, "fl": "Lemon \u2022 Pine \u2022 Spice", "ef": "Uplifted \u2022 Euphoric \u2022 Creative", "img": "img/vapes-trainwreck-1g-cart.jpg", "chip": "1G CART", "badge": null, "sizes": [{"l": "1g", "p": 6999, "s": null}]}, {"n": "Pineapple Express", "b": "Northpark", "t": "Sativa Dom. Hybrid", "thc": 82.785, "fl": "Pineapple \u2022 Citrus \u2022 Pine", "ef": "Uplifted \u2022 Euphoric \u2022 Creative", "img": "img/vapes-pineapple-express-1g-disposable.jpg", "chip": "1G DISPOSABLE", "badge": null, "sizes": [{"l": "1g", "p": 7499, "s": null}]}, {"n": "Trainwreck", "b": "Northpark", "t": "Sativa", "thc": 82.777, "fl": "Lemon \u2022 Pine \u2022 Spice", "ef": "Uplifted \u2022 Euphoric \u2022 Creative", "img": "img/vapes-trainwreck-1g-disposable.jpg", "chip": "1G DISPOSABLE", "badge": null, "sizes": [{"l": "1g", "p": 7499, "s": null}]}, {"n": "Blue Zushi", "b": "Elevate Botanicals", "t": "Indica Dom. Hybrid", "thc": 71.7, "fl": "Herbal \u2022 Spice \u2022 Pine", "ef": "Euphoric \u2022 Uplifted \u2022 Relaxed", "img": "img/vapes-blue-zushi-hash-rosin-disposable.jpg", "chip": "HASH ROSIN DISPOSABLE", "badge": null, "sizes": [{"l": ".5g", "p": 6000, "s": null}]}, {"n": "Lemon Yacht Club", "b": "Elevate Botanicals", "t": "Sativa Dom. Hybrid", "thc": 71.2, "fl": "Lemon Zest \u2022 Citrus \u2022 Earthy", "ef": "Euphoric \u2022 Creative \u2022 Giggly", "img": "img/vapes-lemon-yacht-club-hash-rosin-disposable.jpg", "chip": "HASH ROSIN DISPOSABLE", "badge": null, "sizes": [{"l": ".5g", "p": 6000, "s": null}]}, {"n": "Mexican Flan", "b": "Elevate Botanicals", "t": "Hybrid", "thc": 71.1, "fl": "Apricot \u2022 Cream \u2022 Fruity", "ef": "Giggly \u2022 Focused \u2022 Calm", "img": "img/vapes-mexican-flan-hash-rosin-disposable.jpg", "chip": "HASH ROSIN DISPOSABLE", "badge": null, "sizes": [{"l": ".5g", "p": 6000, "s": null}]}, {"n": "Strawberry Lemonade", "b": "Elevate Botanicals", "t": "Sativa Dom. Hybrid", "thc": 74.3, "fl": "Lemon \u2022 Strawberry \u2022 Citrus", "ef": "Uplifted \u2022 Alert \u2022 Relaxed", "img": "img/vapes-strawberry-lemonade-hash-rosin-disposable.jpg", "chip": "HASH ROSIN DISPOSABLE", "badge": null, "sizes": [{"l": ".5g", "p": 6000, "s": null}]}, {"n": "Toad Venom", "b": "Elevate Botanicals", "t": "Indica Dom. Hybrid", "thc": 69.8, "fl": "Gas \u2022 Lime \u2022 Pine", "ef": "Euphoric \u2022 Happy \u2022 Heavy", "img": "img/vapes-toad-venom-hash-rosin-disposable.jpg", "chip": "HASH ROSIN DISPOSABLE", "badge": null, "sizes": [{"l": ".5g", "p": 6000, "s": null}]}, {"n": "Banana Push Pop x Gummi Bear", "b": "Fl\u00f6r", "t": "Hybrid", "thc": 61.1, "fl": "Banana \u2022 Candy \u2022 Creamy", "ef": "Euphoric \u2022 Happy \u2022 Relaxed", "img": "img/vapes-banana-push-pop-x-gummi-bear-live-rosin.jpg", "chip": "LIVE ROSIN", "badge": null, "sizes": [{"l": ".5g", "p": 6500, "s": null}]}]};
+const SECONDS = 14, PER = 4;                     // a new block every 14 s
+const TITLES = { flower: ["Flower", "Premium buds"], prerolls: ["Prerolls", "Singles & packs"], vapes: ["Vapes", "& concentrates"] };
+const money = c => "$" + (c % 100 ? (c / 100).toFixed(2) : (c / 100));
+
+const stage = document.getElementById("stage");
+const screens = [...stage.querySelectorAll(".screen")];
+const shown = screens.map(() => -1);
+
+function cardHTML(it) {
+  if (!it) return '<article class="card empty"></article>';
+  const rows = it.sizes.slice(0, 2).map(s => `<div class="row"><span>${s.l}</span><span class="v">${s.s ? `<s>${money(s.p)}</s><span class="p sale">${money(s.s)}</span>` : `<span class="p">${money(s.p)}</span>`}</span></div>`).join("");
+  const kind = /^indica/i.test(it.t) ? "indica" : /^sativa/i.test(it.t) ? "sativa" : "hybrid";
+  const label = it.t.replace("Dom. Hybrid", "Dom.");
+  const thc = it.thc ? `<span class="thc"><small>THC</small>${(+it.thc).toFixed(1)}%</span>` : "";
+  const feel = (it.ef || "").split("•").map(x => x.trim()).filter(Boolean).map(x => `<span>${x}</span>`).join("");
+  return `<article class="card"><div class="ph"><img src="${it.img}" alt="">${it.badge ? `<span class="badge">${it.badge}</span>` : ""}${it.chip ? `<span class="chip">${it.chip}</span>` : ""}</div>
+    <div class="meta"><span class="type ${kind}">${label}</span>${thc}</div>
+    <div class="name">${it.n}</div>
+    <div class="lbl">Taste</div><div class="taste">${(it.fl || "").replace(/ • /g, " · ")}</div>
+    <div class="lbl">Feel</div><div class="feel">${feel}</div>
+    <div class="price${it.sizes.length > 1 ? " two" : ""}">${rows}</div></article>`;
+}
+function fitNames(root) {
+  root.querySelectorAll('.name').forEach(el => { let f = 50; el.style.fontSize = f + 'px'; while (el.scrollWidth > el.clientWidth + 1 && f > 28) { f -= 2; el.style.fontSize = f + 'px'; } });
+}
+function pages(cat) { return Math.ceil(DATA[cat].length / PER); }
+function render(i, p) {
+  const scr = screens[i], cat = scr.dataset.cat, n = pages(cat);
+  const items = DATA[cat].slice(p * PER, p * PER + PER);
+  while (items.length < PER) items.push(null);
+  const html = `<div class="head"><h2>${TITLES[cat][0]}<small>${TITLES[cat][1]}</small></h2>
+    ${i === 1 ? '<img class="logo" src="img/logo.png" alt="Green Apple Cannabis">' : ""}
+    <div class="dots">${Array.from({ length: n }, (_, k) => `<i class="${k === p ? "on" : ""}"></i>`).join("")}</div></div>
+    <div class="cards">${items.map(cardHTML).join("")}</div>`;
+  scr.innerHTML = html; fitNames(scr);
+}
+
+// Everything is a pure function of time t (seconds), so the three TV videos match frame for frame.
+// Every 14 s each TV changes page, left to right, with a soft fade. 12 changes = 168 s loop.
+const LOOP = 168;                                    // 12 page turns: every screen (4, 4, 3 pages) back to the start
+const WAVE = 0.35;                                   // left TV changes first, then middle, then right
+const OUT = 0.45, IN = 0.9, STAG = 0.09, RISE = 26;  // gentle fade out / fade-and-rise in
+const crossAt = i => i * WAVE;
+function turnsAt(t) { return Math.floor(t / SECONDS); }
+const clamp = x => Math.max(0, Math.min(1, x));
+const easeOut = x => 1 - Math.pow(1 - x, 3);
+
+const TICKER = ["<b>15% OFF</b> Block Party · Cap Junky · Sunset Tea · Gummibears · Froot by the Foot", "<b>40% OFF</b> Fog Dog 3-pack prerolls", "<b>20% OFF</b> Purple Octane 3.5g", "<b>15% OFF</b> Float prepacked chillums", "<b>20% OFF</b> Lumi, Nothing But Canna & North hemp edibles", "<b>20% OFF</b> Cycling Frog gummies", "<b>25% OFF</b> any 4+ THC drinks, mix & match", "<b>50% OFF</b> select THC drinks · while they last"];
+const track = document.getElementById("track");
+function setTicker(list) { track.innerHTML = [...list, ...list, ...list, ...list].map(x => `<span class="it">${x}</span><i class="sep"></i>`).join(""); }
+setTicker(TICKER);
+let trackW = 0, tickSpeed = 120;
+const glowEl = document.getElementById("glow");
+
+function step(t) {
+  screens.forEach((scr, i) => {
+    const ti = t - crossAt(i);
+    const p = turnsAt(ti + OUT) % pages(scr.dataset.cat);    // switch content at the bottom of the fade-out
+    if (p !== shown[i]) { render(i, p); shown[i] = p; }
+    const into = ti + OUT - Math.floor((ti + OUT) / SECONDS) * SECONDS;   // seconds since this screen switched
+    const toOut = SECONDS - into;                                           // seconds until next switch
+    scr.querySelectorAll(".card").forEach((c, k) => {
+      if (toOut < OUT + (3 - k) * 0) {
+        const a = clamp(toOut / OUT);
+        c.style.opacity = a; c.style.transform = `translateY(${-10 * (1 - a)}px)`;
+        return;
+      }
+      const a = clamp((into - k * STAG) / IN);
+      if (a >= 1) { c.style.opacity = ""; c.style.transform = ""; return; }
+      const e = easeOut(a);
+      c.style.opacity = e; c.style.transform = `translateY(${RISE * (1 - e)}px)`;
+    });
+    const dots = scr.querySelector(".dots"); if (dots) dots.style.opacity = "";
+  });
+  if (!trackW) { trackW = track.scrollWidth / 4; if (trackW) tickSpeed = Math.round(LOOP * 120 / trackW) * trackW / LOOP; }
+  if (trackW) track.style.transform = `translateX(${-((t * tickSpeed) % trackW)}px)`;
+  glowEl.style.transform = `translateX(${(((t % LOOP) / LOOP) * 8360) - 2600}px)`;
+  const into0 = t - Math.floor(t / SECONDS) * SECONDS;
+  return into0 > SECONDS - OUT - 0.05 || into0 < 2 * WAVE + 3 * STAG + IN + 0.05;
+}
+// Live refresh: every 3 minutes check data.json (published next to this page) and swap in any changes
+// without reloading, so the TVs pick up menu updates on their own.
+let lastSig = JSON.stringify({ flower: DATA.flower, prerolls: DATA.prerolls, vapes: DATA.vapes, ticker: TICKER });
+async function refresh() {
+  if (window.CAPTURE || location.protocol === "file:") return;
+  try {
+    const r = await fetch("data.json?t=" + Date.now(), { cache: "no-store" });
+    if (!r.ok) return;
+    const d = await r.json();
+    if (!d.flower || !d.prerolls || !d.vapes || !d.ticker) return;
+    const sig = JSON.stringify({ flower: d.flower, prerolls: d.prerolls, vapes: d.vapes, ticker: d.ticker });
+    if (sig === lastSig) return;
+    lastSig = sig;
+    DATA.flower = d.flower; DATA.prerolls = d.prerolls; DATA.vapes = d.vapes;
+    shown.fill(-1);
+    setTicker(d.ticker); trackW = 0;
+  } catch (e) {}
+}
+setInterval(refresh, 180000);
+window.step = step; window.trackInfo = () => ({ trackW, tickSpeed });
+if (window.CAPTURE) document.body.classList.add('capture');
+if (!window.CAPTURE) { const loop = () => { step(Date.now() / 1000); requestAnimationFrame(loop); }; requestAnimationFrame(loop); }
+
+// scaling: no hash = preview of all three; #left/#center/#right = that TV's third, full screen
+const SLOT = { "#left": 0, "#center": 1, "#right": 2 };
+function fit() {
+  const k = SLOT[location.hash];
+  const single = k !== undefined;
+  document.body.classList.toggle("single", single);
+  const w = innerWidth, h = innerHeight;
+  const W = single ? 1920 : 5760;
+  const s = Math.min(w / W, h / 1080);
+  const ox = (w - W * s) / 2 - (single ? k * 1920 * s : 0), oy = (h - 1080 * s) / 2;
+  stage.style.transform = `translate(${ox}px,${oy}px) scale(${s})`;
+}
+addEventListener("resize", fit); addEventListener("hashchange", fit); fit();
+async function wake() { try { await navigator.wakeLock?.request("screen"); } catch (e) {} }
+wake(); document.addEventListener("visibilitychange", () => { if (!document.hidden) wake(); });
+document.addEventListener("dblclick", () => { if (!document.fullscreenElement) document.documentElement.requestFullscreen?.().catch(() => {}); });
+</script>
+
+</body></html>
