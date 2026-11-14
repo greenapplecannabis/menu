@@ -108,6 +108,9 @@ body { margin: 0; background: #050607; color: var(--ink); font-family: var(--bod
 .leaf { position: absolute; left: 0; top: 0; width: 90px; height: 90px; will-change: transform; }
 .leaf svg { width: 100%; height: 100%; display: block; }
 
+.ad .leaf { background: var(--c); -webkit-mask: var(--leaf) center / contain no-repeat; mask: var(--leaf) center / contain no-repeat; }
+body:not(.theme-green-wednesday) .ad { display: none; }
+
 /* deals ticker running along the bottom of all three TVs */
 .ticker { position: absolute; left: 0; right: -400px; bottom: 0; height: 104px; background: linear-gradient(180deg, #0c1a10, #08130b); border-top: 3px solid var(--green); z-index: 4; overflow: hidden; }
 .ticker .track { position: absolute; top: 0; height: 100%; display: flex; align-items: center; white-space: nowrap; will-change: transform; }
@@ -169,6 +172,13 @@ body { margin: 0; background: #050607; color: var(--ink); font-family: var(--bod
     <section class="screen s2" data-cat="flower"></section>
     <div class="ticker"><div class="track" id="track"></div></div>
     <div class="bezel a"></div><div class="bezel b"></div>
+    <div class="ad" id="gwad">
+      <div class="rule t"></div><div class="rule b"></div>
+      <div class="blk b0"><div class="kicker anim">The day before Thanksgiving</div><div class="word anim">Green</div></div>
+      <div class="blk b1"><div class="word anim">Wednesday</div><img class="logoBig anim" src="img/logo.png" alt=""></div>
+      <div class="blk b2"><div class="kicker anim">Save the date</div><div class="date anim">Wed 11/25</div><div class="sub anim">Deals all day long<br>in store</div><div class="tag anim">GREEN APPLE CANNABIS</div></div>
+      <div id="leaves"></div>
+    </div>
     
   </div>
 </div>
@@ -418,4 +428,42 @@ addEventListener("resize", fit); addEventListener("hashchange", fit); fit();
 async function wake() { try { await navigator.wakeLock?.request("screen"); } catch (e) {} }
 wake(); document.addEventListener("visibilitychange", () => { if (!document.hidden) wake(); });
 document.addEventListener("dblclick", () => { if (!document.fullscreenElement) document.documentElement.requestFullscreen?.().catch(() => {}); });
+</script>
+<script>
+// Green Wednesday full-wall ad (only while data.json "theme" is "green-wednesday").
+// Every CYCLE seconds it wipes in across all three TVs, leaves fall for SHOW seconds, then it wipes out.
+// Everything is computed from the shared clock, so the three sticks draw the same frame.
+(function () {
+  const ad = document.getElementById("gwad"), box = document.getElementById("leaves");
+  const CYCLE = 84, SHOW = 14, WIPE = 1.2, N = 34;
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const COLORS = ["#8DC63F", "#6fae2e", "#a4d65e", "#F5B82E", "#4f9a3a"];
+  const leaves = [...Array(N)].map(() => { const el = document.createElement("div"); el.className = "leaf";
+    const L = { el, x: rnd(), size: 60 + rnd() * 70, spd: 70 + rnd() * 90, ph: rnd(), sw: 30 + rnd() * 70, sf: .6 + rnd() * 1.1, rot: rnd() * 360, rs: (rnd() - .5) * 140 };
+    el.style.setProperty("--c", COLORS[Math.floor(rnd() * COLORS.length)]); el.style.width = el.style.height = L.size + "px";
+    el.style.opacity = .55 + rnd() * .4; box.appendChild(el); return L; });
+  const anims = [...ad.querySelectorAll(".blk")].map((b, i) => [...b.querySelectorAll(".anim")].map((el, j) => ({ el, i, j })));
+  function toStage(P, wall) { return ONLY >= 0 ? P - ONLY * BEZEL : P * 5760 / wall; }
+  function frame() {
+    if (!document.body.classList.contains("theme-green-wednesday")) { requestAnimationFrame(frame); return; }
+    const t = (clock() / 1000) % CYCLE, wall = 5760 + 2 * BEZEL;
+    if (t >= SHOW) { if (ad.style.visibility !== "hidden") ad.style.visibility = "hidden"; requestAnimationFrame(frame); return; }
+    ad.style.visibility = "visible";
+    const ease = x => x < 0 ? 0 : x > 1 ? 1 : 1 - Math.pow(1 - x, 3);
+    const inF = ease(t / WIPE), outF = ease((t - (SHOW - WIPE)) / WIPE);
+    const r = 5760 - toStage(inF * wall, wall), l = toStage(outF * wall, wall);
+    ad.style.clipPath = `inset(0 ${Math.max(0, r)}px 0 ${Math.max(0, l)}px)`;
+    anims.forEach(list => list.forEach(({ el, i, j }) => {
+      const st = WIPE * (i + .5) / 3 + .15 + j * .18, f = ease((t - st) / .7);
+      el.style.opacity = f; el.style.transform = `translateY(${(1 - f) * 60}px)`;
+    }));
+    for (const L of leaves) {
+      const y = -160 + ((t * L.spd + L.ph * 1400) % 1400);
+      const P = L.x * wall + Math.sin(t * L.sf + L.ph * 6.28) * L.sw;
+      L.el.style.transform = `translate(${toStage(P, wall)}px,${y}px) rotate(${L.rot + t * L.rs}deg)`;
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
 </script>
