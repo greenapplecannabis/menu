@@ -2,7 +2,8 @@
 
 The menu wall is this GitHub repository, published with GitHub Pages at
 https://greenapplecannabis.github.io/menu/ — three Fire TV sticks show it with #left = Vapes,
-#center = Prerolls, #right = Flower. The page re-reads `data.json` every 3 minutes, so a push is all
+#center = Prerolls, #right = Flower. A fourth TV in the lounge shows lounge.html (full menu by category,
+deal slides, ticker) from the same data. The page re-reads `data.json` every 3 minutes, so a push is all
 it takes for the TVs to change. This run keeps it in step with Flowhub.
 
 Flowhub is READ ONLY in this job: never create or change deals, products, prices or inventory.
@@ -10,14 +11,15 @@ Flowhub is READ ONLY in this job: never create or change deals, products, prices
 ## 1. Get the repo
 Call `add_repo` (owner `greenapplecannabis`, repo `menu`, access `push`) and clone it as that tool says
 (`git clone --depth 1 https://github.com/greenapplecannabis/menu <dir>`). Work inside the clone.
-Files: `index.html` + `data.json` (published, generated), `img/` (product photos), `kit/` (this runbook,
-`template.html`, `data.json` = the source data, `render.py`, `agg.py`).
+Files: `index.html` + `lounge.html` + `data.json` (published, generated), `img/` (product photos), `kit/` (this runbook,
+`template.html` (wall), `lounge.html` (lounge TV template), `data.json` = the source data, `render.py`, `agg.py`).
 
 ## 2. Read Flowhub (Flowhub tools only)
 - `get_own_active_user` first (store: Green Apple Cannabis).
 - `manage_inventory` list per category; save each raw result to a file:
   Flower 1009137d-354a-40c4-be74-a7e0473513a7 · Preroll b4e924aa-2e41-445e-9ad3-0470bdf3a1e9 ·
-  Vapes fa65853e-c899-45d8-998e-3c06d3a24e70 · Concentrates 9e1725d4-0433-4736-8827-49b9aade175c
+  Vapes fa65853e-c899-45d8-998e-3c06d3a24e70 · Concentrates 9e1725d4-0433-4736-8827-49b9aade175c ·
+  Edibles 3c7af524-ddff-4991-8cfb-56cc7ad58a45 (MN cannabis-derived edibles only; not the hemp "THC Edibles")
 - `kit/agg.py`: `from agg import agg; agg(path)` gives in-stock variants (room "For Sale", q>0) with
   name, variant, brand, price (cents, pre-tax), THC.
 - `manage_deals` list: the deals that are active today.
@@ -27,7 +29,9 @@ Items: `{n: strain name, b: brand, t: "Indica|Sativa|Hybrid|Indica Dom. Hybrid|S
 fl: "Taste • Taste • Taste", ef: "Feel • Feel • Feel", img: "img/<file>", chip: short label or null
 (e.g. "2-PACK", "1G CART", "1G DISPOSABLE", "HASH ROSIN DISPOSABLE"), badge: e.g. "40% OFF" or null,
 sizes: [{l: label e.g. "3.5g" / "2-Pack 1.5g", p: price cents, s: sale price cents or null}]}`.
-Sections: flower (flower jars/bags), prerolls, vapes (vapes + concentrates). Keep the existing order;
+Sections: flower (flower jars/bags), prerolls, vapes (vapes + concentrates), edibles (lounge TV only).
+Edibles items use the same shape, but `t` may be "" when the description gives no type, `thc` is null, and
+`dose` = e.g. "200mg · 10mg each" from the description; size label e.g. "20 ct"; `fl`/`ef` may be "". Keep the existing order;
 put new items where they fit alphabetically.
 
 Rules, in order:

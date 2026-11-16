@@ -773,6 +773,46 @@
    ]
   }
  ],
+ "edibles": [
+  {
+   "n": "Groovy Pebbles",
+   "b": "Hiza Kyte",
+   "t": "",
+   "thc": null,
+   "dose": "200mg \u00b7 10mg each",
+   "fl": "",
+   "ef": "",
+   "img": "img/placeholder.jpg",
+   "chip": null,
+   "badge": null,
+   "sizes": [
+    {
+     "l": "20 ct",
+     "p": 5800,
+     "s": null
+    }
+   ]
+  },
+  {
+   "n": "Lemon Lift",
+   "b": "Hiza Kyte",
+   "t": "Sativa",
+   "thc": null,
+   "dose": "200mg \u00b7 10mg each",
+   "fl": "Lemon",
+   "ef": "",
+   "img": "img/placeholder.jpg",
+   "chip": null,
+   "badge": null,
+   "sizes": [
+    {
+     "l": "20 ct",
+     "p": 5800,
+     "s": null
+    }
+   ]
+  }
+ ],
  "ticker": [
   "<b>15% OFF</b> Block Party \u00b7 Cap Junky \u00b7 Sunset Tea \u00b7 Gummibears \u00b7 Froot by the Foot",
   "<b>40% OFF</b> Fog Dog 3-pack prerolls",
