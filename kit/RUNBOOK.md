@@ -22,6 +22,10 @@ Files: `index.html` + `lounge.html` + `data.json` (published, generated), `img/`
   Edibles 3c7af524-ddff-4991-8cfb-56cc7ad58a45 (MN cannabis-derived edibles only; not the hemp "THC Edibles")
 - `kit/agg.py`: `from agg import agg; agg(path)` gives in-stock variants (room "For Sale", q>0) with
   name, variant, brand, price (cents, pre-tax), THC.
+- THC fallback: the batch's "Total % THC" is often left blank at check-in while the product page has
+  "% THC". `from agg import missing_thc; missing_thc(path)` lists the products with no batch THC; for each,
+  call `manage_products` get (return_fields `id`, `fields { name value }`, `variants { fields { name value } }`)
+  and save the raw result to a file, then call `agg(path, [those files])` to fill THC from the product page.
 - `manage_deals` list: the deals that are active today.
 
 ## 3. Update kit/data.json
@@ -42,8 +46,10 @@ Rules, in order:
    else a quick web search of the strain, best effort, 3 words each. Image: reuse an existing
    `img/` file of the same product line (same brand + package style) if one fits; otherwise
    `img/placeholder.jpg`. Never invent prices or THC.
-4. Skip samples, display units, $0 items, accessories, and non-cannabis products.
-5. **Ticker** (`ticker` array, HTML allowed: `<b>NN% OFF</b> what`) → one line per active
+4. **THC** → `thc` = the THC that `agg` gives (batch first, then product page). Also fill in `thc` on an
+   existing item whose `thc` is null once a value is available. Leave it null if Flowhub has none.
+5. Skip samples, display units, $0 items, accessories, and non-cannabis products.
+6. **Ticker** (`ticker` array, HTML allowed: `<b>NN% OFF</b> what`) → one line per active
    customer-facing deal, short and plain, like the existing lines. Remove lines for ended deals.
 Change nothing else (layout, titles, wording of untouched items). Keep the `theme` value exactly as it is
 (e.g. "green-wednesday" or ""); only the owner switches themes. Likewise keep `bezel` (the gap between TVs) as is.
