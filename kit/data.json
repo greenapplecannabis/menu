@@ -373,7 +373,7 @@
    "n": "Fog Dog",
    "b": "Northpark Cannabis Co.",
    "t": "Indica",
-   "thc": 15.425,
+   "thc": 17.201,
    "fl": "Earthy \u2022 Pine \u2022 Diesel",
    "ef": "Relaxed \u2022 Calm \u2022 Sleepy",
    "img": "img/prerolls-fog-dog.jpg",
@@ -550,6 +550,24 @@
     {
      "l": "8-Pack 2.8g",
      "p": 5000,
+     "s": null
+    }
+   ]
+  },
+  {
+   "n": "Zesty Parm",
+   "b": "Minny Grown",
+   "t": "Sativa",
+   "thc": 21.9,
+   "fl": "Floral \u2022 Herbal \u2022 Earthy Cheese",
+   "ef": "Energized \u2022 Lively \u2022 Uplifted",
+   "img": "img/prerolls-zesty-parm-2-pack.jpg",
+   "chip": "2-PACK",
+   "badge": null,
+   "sizes": [
+    {
+     "l": "2-Pack 1.5g",
+     "p": 2300,
      "s": null
     }
    ]
@@ -821,6 +839,7 @@
   "<b>20% OFF</b> Lumi, Nothing But Canna & North hemp edibles",
   "<b>20% OFF</b> Cycling Frog gummies",
   "<b>25% OFF</b> any 4+ THC drinks, mix & match",
+  "<b>50% OFF</b> short-dated Wyld Huckleberry & Marionberry gummies \u00b7 while they last",
   "<b>50% OFF</b> select THC drinks \u00b7 while they last"
  ],
  "theme": "",
