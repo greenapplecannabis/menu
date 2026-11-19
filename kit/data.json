@@ -132,6 +132,24 @@
    ]
   },
   {
+   "n": "Gorilla Zkittlez",
+   "b": "Float Cannabis",
+   "t": "Hybrid",
+   "thc": 21.91,
+   "fl": "Fruity \u2022 Sweet \u2022 Earthy",
+   "ef": "Giggly \u2022 Hungry \u2022 Sleepy",
+   "img": "img/flower-hippie-crasher.jpg",
+   "chip": null,
+   "badge": null,
+   "sizes": [
+    {
+     "l": "3.5g",
+     "p": 5600,
+     "s": null
+    }
+   ]
+  },
+  {
    "n": "Gummibears",
    "b": "Mischief Premium",
    "t": "Hybrid",
@@ -156,6 +174,24 @@
    "thc": 20.96,
    "fl": "Mint \u2022 Vanilla \u2022 Funky",
    "ef": "Tingly \u2022 Relaxed \u2022 Euphoric",
+   "img": "img/flower-hippie-crasher.jpg",
+   "chip": null,
+   "badge": null,
+   "sizes": [
+    {
+     "l": "3.5g",
+     "p": 5600,
+     "s": null
+    }
+   ]
+  },
+  {
+   "n": "Lemon Fresh",
+   "b": "Float Cannabis",
+   "t": "Sativa Dom. Hybrid",
+   "thc": 18.66,
+   "fl": "Lemon \u2022 Diesel \u2022 Cheese",
+   "ef": "Energetic \u2022 Creative \u2022 Uplifted",
    "img": "img/flower-hippie-crasher.jpg",
    "chip": null,
    "badge": null,
@@ -205,6 +241,24 @@
      "l": "7g",
      "p": 9500,
      "s": 7600
+    }
+   ]
+  },
+  {
+   "n": "Purple Starfruit",
+   "b": "Float Cannabis",
+   "t": "Indica Dom. Hybrid",
+   "thc": 22.017,
+   "fl": "Candy \u2022 Tropical \u2022 Mint",
+   "ef": "Calm \u2022 Relaxed \u2022 Euphoric",
+   "img": "img/flower-hippie-crasher.jpg",
+   "chip": null,
+   "badge": null,
+   "sizes": [
+    {
+     "l": "3.5g",
+     "p": 5600,
+     "s": null
     }
    ]
   },
@@ -370,6 +424,24 @@
    ]
   },
   {
+   "n": "Cap Junky",
+   "b": "Float Cannabis",
+   "t": "Hybrid",
+   "thc": 27.2,
+   "fl": "Gas \u2022 Sour Fruit \u2022 Mint",
+   "ef": "Euphoric \u2022 Cerebral \u2022 Relaxed",
+   "img": "img/prerolls-lemon-fresh-1g-preroll.jpg",
+   "chip": "1G PREROLL",
+   "badge": null,
+   "sizes": [
+    {
+     "l": "1g",
+     "p": 1500,
+     "s": null
+    }
+   ]
+  },
+  {
    "n": "Fog Dog",
    "b": "Northpark Cannabis Co.",
    "t": "Indica",
@@ -419,6 +491,24 @@
     {
      "l": "1g",
      "p": 1400,
+     "s": null
+    }
+   ]
+  },
+  {
+   "n": "Glitter Bomb",
+   "b": "Float Cannabis",
+   "t": "Indica Dom. Hybrid",
+   "thc": 24.1,
+   "fl": "Berry \u2022 Grape \u2022 Gas",
+   "ef": "Euphoric \u2022 Relaxed \u2022 Calm",
+   "img": "img/prerolls-lemon-fresh-1g-preroll.jpg",
+   "chip": "1G PREROLL",
+   "badge": null,
+   "sizes": [
+    {
+     "l": "1g",
+     "p": 1500,
      "s": null
     }
    ]
