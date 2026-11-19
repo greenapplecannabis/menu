@@ -1,24 +1,6 @@
 {
  "flower": [
   {
-   "n": "Block Party",
-   "b": "Redwood County Weed Management",
-   "t": "Hybrid",
-   "thc": 20.1,
-   "fl": "Diesel \u2022 Pepper \u2022 Clove",
-   "ef": "Balanced \u2022 Social \u2022 Happy",
-   "img": "img/flower-block-party.jpg",
-   "chip": null,
-   "badge": "15% OFF",
-   "sizes": [
-    {
-     "l": "3.5g",
-     "p": 5200,
-     "s": 4420
-    }
-   ]
-  },
-  {
    "n": "Cap Junky",
    "b": "Redwood County Weed Management",
    "t": "Hybrid",
@@ -922,7 +904,7 @@
   }
  ],
  "ticker": [
-  "<b>15% OFF</b> Block Party \u00b7 Cap Junky \u00b7 Sunset Tea \u00b7 Gummibears \u00b7 Froot by the Foot",
+  "<b>15% OFF</b> Cap Junky \u00b7 Sunset Tea \u00b7 Gummibears \u00b7 Froot by the Foot",
   "<b>40% OFF</b> Fog Dog 3-pack prerolls",
   "<b>20% OFF</b> Purple Octane 3.5g & 7g",
   "<b>15% OFF</b> Float prepacked chillums",
