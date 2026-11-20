@@ -299,6 +299,33 @@ window.goto = i => { clearTimeout(timer); idx = i - 1; show(); };   // for previ
 window.slideCount = () => SLIDES.length + Math.max(0, DEALS.length - SLIDES.filter(x => x.kind === "slot").length) * 3;
 </script>
 <script>
+// Shared clock, same as the menu wall: read the web server's clock so the car chase here
+// runs right after it leaves the wall, even if this Fire stick's own clock is off.
+let OFFSET = 0;
+function clock() { return Date.now() + OFFSET; }
+async function syncClock() {
+  if (location.protocol === "file:") return;
+  let lo = -Infinity, hi = Infinity, got = 0;
+  const now = () => performance.timeOrigin + performance.now();
+  for (let n = 0; n < 60 && (hi - lo > 15 || got < 8); n++) {
+    const a = now();
+    let r; try { r = await fetch("data.json?c=" + Math.round(a) + "-" + n, { method: "HEAD", cache: "no-store" }); } catch (e) { break; }
+    const b = now(), d = r.headers.get("date");
+    if (!d) break;
+    const S = Date.parse(d);
+    const nlo = Math.max(lo, S - b), nhi = Math.min(hi, S + 1000 - a);
+    if (nlo > nhi) { lo = S - b; hi = S + 1000 - a; got = 1; continue; }
+    lo = nlo; hi = nhi; got++;
+    const mid = (lo + hi) / 2, serverNow = now() + mid, untilTick = 1000 - (serverNow % 1000);
+    const wait = untilTick - (b - a) / 2 + (n % 2 ? 6 : -6);
+    if (wait > 0 && wait < 1100) await new Promise(res => setTimeout(res, wait));
+  }
+  if (got < 2 || !isFinite(lo) || !isFinite(hi)) return;
+  OFFSET = (lo + hi) / 2 + ((performance.timeOrigin + performance.now()) - Date.now());
+}
+syncClock(); setInterval(syncClock, 600000);
+</script>
+<script>
 // Car chase (gta6 theme only): every CYCLE seconds a sports car, then a police cruiser with flashing lights,
 // tear left→right across the wall (Vapes → Prerolls → Flower), then across the lounge TV.
 // Positions come from the shared clock, so separate Fire sticks draw the same frame.
