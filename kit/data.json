@@ -37,6 +37,24 @@
    ]
   },
   {
+   "n": "Fight Club",
+   "b": "Campfire Cannabis",
+   "t": "Sativa Dom. Hybrid",
+   "thc": 19.67,
+   "fl": "Citrus \u2022 Fruit \u2022 Diesel",
+   "ef": "Uplifted \u2022 Creative \u2022 Focused",
+   "img": "img/flower-runtz.jpg",
+   "chip": null,
+   "badge": null,
+   "sizes": [
+    {
+     "l": "3.5g",
+     "p": 5000,
+     "s": null
+    }
+   ]
+  },
+  {
    "n": "Fog Dog",
    "b": "Northpark Cannabis Co.",
    "t": "Indica",
