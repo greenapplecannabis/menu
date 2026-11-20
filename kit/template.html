@@ -500,3 +500,83 @@ document.addEventListener("dblclick", () => { if (!document.fullscreenElement) d
   requestAnimationFrame(frame);
 })();
 </script>
+<script>
+// Car chase (gta6 theme only): every CYCLE seconds a sports car, then a police cruiser with flashing lights,
+// tear left→right across the wall (Vapes → Prerolls → Flower), then across the lounge TV.
+// Positions come from the shared clock, so separate Fire sticks draw the same frame.
+(function () {
+  const LOUNGE = false;
+  const CYCLE = 182, START = 5, SPEED = 2700, GAP = 0.7, CW = 470, ROAD = LOUNGE ? 1000 : 1004;
+  const wheel = (x, y) => `<g class="wh" data-x="${x}" data-y="${y}"><circle cx="${x}" cy="${y}" r="27" fill="#0b0b10"/><circle cx="${x}" cy="${y}" r="17" fill="#c9ccd6"/>
+    <g class="spk" style="transform-origin:${x}px ${y}px"><rect x="${x - 2.5}" y="${y - 16}" width="5" height="32" fill="#6b6f7c"/><rect x="${x - 16}" y="${y - 2.5}" width="32" height="5" fill="#6b6f7c"/>
+    <rect x="${x - 2.5}" y="${y - 16}" width="5" height="32" fill="#6b6f7c" transform="rotate(45 ${x} ${y})"/><rect x="${x - 2.5}" y="${y - 16}" width="5" height="32" fill="#6b6f7c" transform="rotate(-45 ${x} ${y})"/></g>
+    <circle cx="${x}" cy="${y}" r="5" fill="#2a2d36"/></g>`;
+  const RACER = `<svg viewBox="0 0 470 150" width="${CW}" height="150">
+    <defs><linearGradient id="rb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff6bc1"/><stop offset=".55" stop-color="#ff2e93"/><stop offset="1" stop-color="#a3125c"/></linearGradient>
+    <linearGradient id="rw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3ef2e8" stop-opacity=".85"/><stop offset=".6" stop-color="#1a1440"/></linearGradient></defs>
+    <ellipse cx="240" cy="140" rx="215" ry="9" fill="#000" opacity=".45"/>
+    <path d="M14 112 L22 86 Q44 76 128 72 L196 44 Q222 33 268 33 L306 35 Q338 39 368 66 L438 76 Q460 80 463 98 L460 114 L14 114 Z" fill="url(#rb)"/>
+    <path d="M206 48 Q226 39 266 39 L298 41 Q322 45 346 66 L204 68 Z" fill="url(#rw)"/>
+    <path d="M276 41 L280 67" stroke="#ff2e93" stroke-width="5"/>
+    <path d="M30 96 L440 96" stroke="#fff" stroke-opacity=".35" stroke-width="3"/>
+    <path d="M18 80 L56 76 L54 70 L16 74 Z" fill="#1b0b2e"/>
+    <rect x="16" y="88" width="16" height="9" rx="2" fill="#ff2338"/><rect x="447" y="84" width="14" height="9" rx="3" fill="#fff6c4"/>
+    ${wheel(110, 114)}${wheel(382, 114)}</svg>`;
+  const COP = `<svg viewBox="0 0 480 160" width="${CW + 10}" height="160">
+    <ellipse cx="245" cy="150" rx="220" ry="9" fill="#000" opacity=".45"/>
+    <path d="M12 124 L16 96 Q24 86 76 84 L146 82 L182 52 Q192 45 208 45 L318 45 Q334 45 348 57 L384 84 L446 88 Q466 92 468 108 L466 126 L12 126 Z" fill="#0e0f14"/>
+    <path d="M150 84 L384 86 L384 112 L150 112 Z" fill="#f2f3f5"/>
+    <path d="M190 56 Q198 51 210 51 L256 51 L256 80 L166 80 Z M264 51 L316 51 Q330 51 340 60 L366 80 L264 80 Z" fill="#26304a"/>
+    <text x="267" y="106" text-anchor="middle" font-family="Archivo, Arial Black, sans-serif" font-weight="900" font-size="22" letter-spacing="3" fill="#0e0f14">POLICE</text>
+    <rect x="14" y="98" width="14" height="9" rx="2" fill="#ff2338"/><rect x="452" y="96" width="14" height="9" rx="3" fill="#fff6c4"/>
+    <rect x="222" y="34" width="66" height="12" rx="4" fill="#1a1a1a"/>
+    <rect class="lr" x="224" y="35" width="30" height="10" rx="3" fill="#ff1f3d"/><rect class="lb" x="256" y="35" width="30" height="10" rx="3" fill="#2a6bff"/>
+    ${wheel(116, 126)}${wheel(394, 126)}</svg>`;
+  const css = document.createElement("style");
+  css.textContent = `
+  .chase { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 8; pointer-events: none; overflow: hidden; visibility: hidden; }
+  body:not(.theme-gta6) .chase { display: none; }
+  .chase .car { position: absolute; left: 0; top: 0; will-change: transform; }
+  .chase .racer .streak { position: absolute; height: 6px; border-radius: 3px; right: 100%; background: linear-gradient(90deg, rgba(62,242,232,0), rgba(62,242,232,.85)); }
+  .chase .racer .beam, .chase .cop .beam { position: absolute; left: ${CW - 30}px; top: 58px; width: 520px; height: 90px;
+    background: radial-gradient(closest-side at 0% 50%, rgba(255,246,196,.55), rgba(255,246,196,0)); filter: blur(4px); }
+  .chase .cop .beam { top: 72px; }
+  .chase .siren { position: absolute; left: 0; top: 0; width: 1500px; height: 1000px; border-radius: 50%; mix-blend-mode: screen; will-change: transform, opacity; }
+  .chase .smoke { position: absolute; width: 160px; height: 70px; border-radius: 50%; background: radial-gradient(closest-side, rgba(230,220,255,.35), rgba(230,220,255,0)); }`;
+  document.head.appendChild(css);
+  const box = document.createElement("div"); box.className = "chase";
+  box.innerHTML = `<div class="siren"></div>
+    <div class="car racer"><span class="beam"></span>${[0, 1, 2, 3].map(i => `<i class="streak" style="top:${44 + i * 20}px;width:${260 + i * 70}px;margin-right:${i * 8}px"></i>`).join("")}${RACER}</div>
+    <div class="car cop"><span class="beam"></span>${COP}</div>`;
+  (document.getElementById("stage")).appendChild(box);
+  const racer = box.querySelector(".racer"), cop = box.querySelector(".cop"), siren = box.querySelector(".siren");
+  const lr = cop.querySelector(".lr"), lb = cop.querySelector(".lb");
+  const spokes = [...box.querySelectorAll(".spk")];
+  const now = () => (typeof clock === "function" ? clock() : Date.now()) / 1000;
+  const wallW = () => 5760 + 2 * (typeof BEZEL === "number" ? BEZEL : 0);
+  // wall: physical position P across the three TVs (bezels included) → stage x on this TV
+  const toStage = P => LOUNGE ? P : (ONLY >= 0 ? P - ONLY * BEZEL : P * 5760 / wallW());
+  function frame() {
+    requestAnimationFrame(frame);
+    if (!document.body.classList.contains("theme-gta6")) return;
+    const W = wallW(), wallDur = (W + 2 * CW) / SPEED;
+    let t = ((now() - START) % CYCLE + CYCLE) % CYCLE;   // 182 s = 13 menu pages, so it always runs mid-page
+    if (LOUNGE) t -= wallDur * 0.82;                 // the lounge run starts as the cars leave the Flower TV
+    const span = LOUNGE ? 1920 : W, dur = (span + 2 * CW + 200) / SPEED + GAP;
+    if (t < 0 || t > dur) { if (box.style.visibility !== "hidden") box.style.visibility = "hidden"; return; }
+    box.style.visibility = "visible";
+    const pR = -CW - 60 + t * SPEED, pC = -CW - 60 + (t - GAP) * SPEED * 1.03;
+    const bob = k => Math.sin(t * 38 + k) * 2.2;
+    racer.style.transform = `translate(${toStage(pR)}px, ${ROAD - 128 + bob(0)}px) skewX(-4deg)`;
+    cop.style.transform = `translate(${toStage(pC)}px, ${ROAD - 140 + bob(1.7)}px) skewX(-3deg)`;
+    const ang = (pR / 27) * 57.3;
+    spokes.forEach((s, i) => s.style.transform = `rotate(${i < 2 ? ang : (pC / 27) * 57.3}deg)`);
+    const red = Math.floor(t * 9) % 2 === 0;
+    lr.style.opacity = red ? 1 : .25; lb.style.opacity = red ? .25 : 1;
+    siren.style.background = `radial-gradient(closest-side, ${red ? "rgba(255,31,61,.42)" : "rgba(42,107,255,.48)"}, rgba(0,0,0,0))`;
+    siren.style.transform = `translate(${toStage(pC) + CW / 2 - 750}px, ${ROAD - 600}px)`;
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
