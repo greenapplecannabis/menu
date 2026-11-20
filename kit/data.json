@@ -843,6 +843,42 @@
      "s": null
     }
    ]
+  },
+  {
+   "n": "Gummibears",
+   "b": "Fl\u00f6r",
+   "t": "Hybrid",
+   "thc": 64.7,
+   "fl": "Fruity \u2022 Sweet \u2022 Fuel",
+   "ef": "Happy \u2022 Relaxed \u2022 Balanced",
+   "img": "img/vapes-banana-push-pop-x-gummi-bear-live-rosin.jpg",
+   "chip": "LIVE ROSIN",
+   "badge": null,
+   "sizes": [
+    {
+     "l": ".5g",
+     "p": 6500,
+     "s": null
+    }
+   ]
+  },
+  {
+   "n": "Sub Zero",
+   "b": "Fl\u00f6r",
+   "t": "Hybrid",
+   "thc": 68.0,
+   "fl": "Mint \u2022 Creamy \u2022 Gas",
+   "ef": "Uplifted \u2022 Calm \u2022 Relaxed",
+   "img": "img/vapes-banana-push-pop-x-gummi-bear-live-rosin.jpg",
+   "chip": "LIVE ROSIN",
+   "badge": null,
+   "sizes": [
+    {
+     "l": ".5g",
+     "p": 6500,
+     "s": null
+    }
+   ]
   }
  ],
  "edibles": [
