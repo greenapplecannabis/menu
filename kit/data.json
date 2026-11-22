@@ -352,24 +352,6 @@
  ],
  "prerolls": [
   {
-   "n": "Block Party",
-   "b": "Redwood County Weed Management",
-   "t": "Hybrid",
-   "thc": 16.9,
-   "fl": "Fruity \u2022 Gas \u2022 Pine",
-   "ef": "Balanced \u2022 Social \u2022 Happy",
-   "img": "img/prerolls-block-party.jpg",
-   "chip": null,
-   "badge": null,
-   "sizes": [
-    {
-     "l": "1g",
-     "p": 1400,
-     "s": null
-    }
-   ]
-  },
-  {
    "n": "Bumper OG",
    "b": "Minny Grown",
    "t": "Hybrid",
@@ -420,24 +402,6 @@
      "l": "3-Pack 3g",
      "p": 4000,
      "s": 2400
-    }
-   ]
-  },
-  {
-   "n": "Franken Pine",
-   "b": "Minny Grown",
-   "t": "Hybrid",
-   "thc": 26.0,
-   "fl": "Pine \u2022 Zest \u2022 Savory Spice",
-   "ef": "Relaxed \u2022 Calm \u2022 Mellow",
-   "img": "img/prerolls-franken-pine-2-pack.jpg",
-   "chip": "2-PACK",
-   "badge": null,
-   "sizes": [
-    {
-     "l": "2-Pack 1.5g",
-     "p": 2300,
-     "s": null
     }
    ]
   },
