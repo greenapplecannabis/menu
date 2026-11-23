@@ -829,6 +829,44 @@
  ],
  "edibles": [
   {
+   "n": "Aurora Borealis Beary Bliss",
+   "b": "Minny Grown",
+   "t": "Hybrid",
+   "thc": null,
+   "dose": "200mg \u00b7 10mg each",
+   "fl": "Blackberry",
+   "ef": "",
+   "img": "img/placeholder.jpg",
+   "chip": null,
+   "badge": null,
+   "sizes": [
+    {
+     "l": "20 ct",
+     "p": 5600,
+     "s": null
+    }
+   ]
+  },
+  {
+   "n": "Boundary Waters Bluebeary",
+   "b": "Minny Grown",
+   "t": "Hybrid",
+   "thc": null,
+   "dose": "200mg \u00b7 10mg each",
+   "fl": "Blueberry \u2022 Raspberry",
+   "ef": "",
+   "img": "img/placeholder.jpg",
+   "chip": null,
+   "badge": null,
+   "sizes": [
+    {
+     "l": "20 ct",
+     "p": 5600,
+     "s": null
+    }
+   ]
+  },
+  {
    "n": "Groovy Pebbles",
    "b": "Hiza Kyte",
    "t": "Hybrid",
@@ -862,6 +900,25 @@
     {
      "l": "20 ct",
      "p": 5800,
+     "s": null
+    }
+   ]
+  },
+  {
+   "n": "Sky High Watermelon",
+   "b": "Minny Grown",
+   "t": "Hybrid",
+   "thc": null,
+   "dose": "200mg \u00b7 10mg each",
+   "fl": "Watermelon",
+   "ef": "",
+   "img": "img/placeholder.jpg",
+   "chip": null,
+   "badge": null,
+   "sizes": [
+    {
+     "l": "20 ct",
+     "p": 5600,
      "s": null
     }
    ]
