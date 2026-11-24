@@ -388,6 +388,24 @@
    ]
   },
   {
+   "n": "Fog Dog",
+   "b": "Northpark Cannabis Co.",
+   "t": "Indica",
+   "thc": 15.425,
+   "fl": "Earthy \u2022 Pine \u2022 Diesel",
+   "ef": "Relaxed \u2022 Calm \u2022 Sleepy",
+   "img": "img/prerolls-fog-dog.jpg",
+   "chip": null,
+   "badge": "40% OFF",
+   "sizes": [
+    {
+     "l": "3-Pack 3g",
+     "p": 4000,
+     "s": 2400
+    }
+   ]
+  },
+  {
    "n": "Franken Pine",
    "b": "Minny Grown",
    "t": "Hybrid",
@@ -927,6 +945,7 @@
  ],
  "ticker": [
   "<b>15% OFF</b> Cap Junky \u00b7 Sunset Tea \u00b7 Gummibears \u00b7 Froot by the Foot",
+  "<b>40% OFF</b> Fog Dog 3-pack prerolls",
   "<b>20% OFF</b> Purple Octane 3.5g & 7g",
   "<b>15% OFF</b> Float prepacked chillums",
   "<b>20% OFF</b> Lumi, Nothing But Canna & North hemp edibles",
