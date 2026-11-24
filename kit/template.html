@@ -133,23 +133,27 @@ body:not(.theme-green-wednesday) .ad { display: none; }
 .head .logo { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 .gwtag { display: none; }
 
-/* ---------- Green Wednesday theme (data.json "theme": "green-wednesday") ---------- */
+/* ---------- Green Wednesday theme (data.json "theme": "green-wednesday") — harvest night: slate, copper, cream ---------- */
+body.theme-green-wednesday { --gold: #E8945A; --cream: #F3E6CC; }
 .theme-green-wednesday .stage { background:
-  radial-gradient(1200px 640px at 50% -12%, #2c7a3a 0%, rgba(20,60,32,0) 70%),
-  linear-gradient(180deg, #0f2c19 0%, #0a2013 100%); }
-.theme-green-wednesday .glow { background: radial-gradient(closest-side, rgba(245,184,46,.13), rgba(245,184,46,0)); }
-.theme-green-wednesday .card { background: linear-gradient(180deg, #17402a 0%, #113321 100%); border-color: #2f6a40; box-shadow: 0 18px 40px rgba(0,0,0,.4), inset 0 1px 0 rgba(245,184,46,.18); }
-.theme-green-wednesday .price { border-top-color: #2f6a40; }
+  radial-gradient(1300px 680px at 50% -14%, rgba(232,148,90,.22) 0%, rgba(232,148,90,0) 70%),
+  linear-gradient(180deg, #16222e 0%, #0d151d 100%); }
+.theme-green-wednesday .glow { background: radial-gradient(closest-side, rgba(232,148,90,.12), rgba(232,148,90,0)); }
+.theme-green-wednesday .card { background: linear-gradient(180deg, #1f2d3a 0%, #17222d 100%); border-color: #3a4a58; box-shadow: 0 18px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(232,148,90,.22); }
+.theme-green-wednesday .price { border-top-color: #3a4a58; }
 .theme-green-wednesday .head h2 small { color: var(--gold); }
-.theme-green-wednesday .feel span { background: #1d4a2b; border-color: #2f6a40; color: #E6F2D6; }
-.theme-green-wednesday .dots i { background: #2f6a40; }
+.theme-green-wednesday .feel span { background: #263644; border-color: #3a4a58; color: var(--cream); }
+.theme-green-wednesday .dots i { background: #3a4a58; }
 .theme-green-wednesday .dots i.on { background: var(--gold); }
-.theme-green-wednesday .ticker { background: linear-gradient(180deg, #123a20, #0b2716); border-top: 4px solid var(--gold); }
+.theme-green-wednesday .ticker { background: linear-gradient(180deg, #1c2935, #111a23); border-top: 4px solid var(--gold); }
+.theme-green-wednesday .ticker .it b { color: var(--gold); }
 .theme-green-wednesday .ticker .sep { background: var(--gold); }
+.theme-green-wednesday .ad { background: radial-gradient(1400px 800px at 50% 40%, #243444 0%, rgba(36,52,68,0) 70%), linear-gradient(180deg, #16222e 0%, #0d151d 100%); }
+.theme-green-wednesday .ad .b1 .word, .theme-green-wednesday .ad .sub { color: var(--cream); }
 .theme-green-wednesday .gwtag { display: flex; align-items: center; gap: 14px; border: 3px solid var(--gold); color: var(--gold);
   border-radius: 999px; padding: 8px 22px 8px 16px; font-family: var(--display); font-weight: 900; font-size: 30px;
-  letter-spacing: 3px; text-transform: uppercase; white-space: nowrap; background: rgba(11,36,22,.6); }
-.theme-green-wednesday .gwtag b { color: #F4F6F1; font-weight: 800; letter-spacing: 1px; font-size: 26px; border-left: 2px solid rgba(245,184,46,.5); padding-left: 14px; }
+  letter-spacing: 3px; text-transform: uppercase; white-space: nowrap; background: rgba(13,21,29,.6); }
+.theme-green-wednesday .gwtag b { color: var(--cream); font-weight: 800; letter-spacing: 1px; font-size: 26px; border-left: 2px solid rgba(232,148,90,.5); padding-left: 14px; }
 .theme-green-wednesday .s1 .gwtag b { display: none; }   /* center TV: shorter tag so it clears the logo */
 .theme-green-wednesday .gwtag .leafi { width: 34px; height: 34px; background: var(--green);
   -webkit-mask: var(--leaf) center / contain no-repeat; mask: var(--leaf) center / contain no-repeat; }
@@ -470,7 +474,7 @@ document.addEventListener("dblclick", () => { if (!document.fullscreenElement) d
   const ad = document.getElementById("gwad"), box = document.getElementById("leaves");
   const CYCLE = 84, SHOW = 14, WIPE = 1.2, N = 34;
   let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-  const COLORS = ["#8DC63F", "#6fae2e", "#a4d65e", "#F5B82E", "#4f9a3a"];
+  const COLORS = ["#E8945A", "#C9572E", "#F3E6CC", "#8DC63F", "#B9783F"];
   const leaves = [...Array(N)].map(() => { const el = document.createElement("div"); el.className = "leaf";
     const L = { el, x: rnd(), size: 60 + rnd() * 70, spd: 70 + rnd() * 90, ph: rnd(), sw: 30 + rnd() * 70, sf: .6 + rnd() * 1.1, rot: rnd() * 360, rs: (rnd() - .5) * 140 };
     el.style.setProperty("--c", COLORS[Math.floor(rnd() * COLORS.length)]); el.style.width = el.style.height = L.size + "px";

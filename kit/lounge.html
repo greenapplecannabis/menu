@@ -93,12 +93,14 @@ html, body { height: 100%; margin: 0; background: #050607; color: var(--ink); fo
 .ticker .t b { color: var(--gold); font-weight: 900; }
 .ticker .sep { width: 18px; height: 18px; transform: rotate(45deg); background: var(--green); flex: none; }
 
-/* Green Wednesday theme */
-.theme-green-wednesday .stage { background: radial-gradient(1200px 640px at 50% -12%, #2c7a3a 0%, rgba(20,60,32,0) 70%), linear-gradient(180deg, #0f2c19 0%, #0a2013 100%); }
-.theme-green-wednesday .it { background: linear-gradient(180deg, #17402a 0%, #113321 100%); border-color: #2f6a40; }
+/* Green Wednesday theme — harvest night: slate, copper, cream */
+body.theme-green-wednesday { --gold: #E8945A; }
+.theme-green-wednesday .stage { background: radial-gradient(1200px 640px at 50% -12%, rgba(232,148,90,.22) 0%, rgba(232,148,90,0) 70%), linear-gradient(180deg, #16222e 0%, #0d151d 100%); }
+.theme-green-wednesday .it { background: linear-gradient(180deg, #1f2d3a 0%, #17222d 100%); border-color: #3a4a58; }
 .theme-green-wednesday .head h2 small { color: var(--gold); }
-.theme-green-wednesday .ticker { background: linear-gradient(180deg, #123a20, #0b2716); border-top: 4px solid var(--gold); }
+.theme-green-wednesday .ticker { background: linear-gradient(180deg, #1c2935, #111a23); border-top: 4px solid var(--gold); }
 .theme-green-wednesday .ticker .sep { background: var(--gold); }
+.theme-green-wednesday .deal { background: radial-gradient(900px 600px at 20% 25%, rgba(232,148,90,.28) 0%, rgba(22,34,46,0) 70%), radial-gradient(1000px 650px at 85% 80%, #243444 0%, rgba(22,34,46,0) 70%), #0d151d; }
 /* Vice nights theme ("gta6") */
 :root { --palm: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 320'%3E%3Cg fill='%2314062a'%3E%0A%3Cpath d='M96 320 C100 250 106 190 94 128 L104 126 C116 190 112 250 110 320 Z'/%3E%0A%3Cpath d='M100 124 C72 96 36 96 4 128 C38 112 70 114 100 130 Z'/%3E%0A%3Cpath d='M100 124 C128 96 164 96 196 128 C162 112 130 114 100 130 Z'/%3E%0A%3Cpath d='M100 122 C84 84 52 66 18 74 C52 82 78 100 98 128 Z'/%3E%0A%3Cpath d='M100 122 C116 84 148 66 182 74 C148 82 122 100 102 128 Z'/%3E%0A%3Cpath d='M100 122 C96 88 104 58 122 36 C112 64 108 94 104 126 Z'/%3E%0A%3Cpath d='M100 124 C76 120 46 140 32 176 C54 150 78 136 100 132 Z'/%3E%0A%3Cpath d='M100 124 C124 120 154 140 168 176 C146 150 122 136 100 132 Z'/%3E%0A%3C/g%3E%3C/svg%3E"); }
 .theme-gta6 .stage { background: radial-gradient(800px 380px at 50% 112%, rgba(255,138,61,.5) 0%, rgba(255,138,61,0) 70%), linear-gradient(180deg, #120626 0%, #2a0b4a 38%, #6b1466 72%, #b2345f 92%, #f07a45 100%); }
