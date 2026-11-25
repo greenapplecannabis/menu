@@ -26,6 +26,12 @@ Files: `index.html` + `lounge.html` + `data.json` (published, generated), `img/`
   "% THC". `from agg import missing_thc; missing_thc(path)` lists the products with no batch THC; for each,
   call `manage_products` get (return_fields `id`, `fields { name value }`, `variants { fields { name value } }`)
   and save the raw result to a file, then call `agg(path, [those files])` to fill THC from the product page.
+- Strain type: `manage_products` list per category (same category IDs; `limit` 500; return_fields `id`,
+  `name`, `brand`, `variants { fields { name value } }`) and save each raw result to a file. If a result
+  comes back inline instead of as a saved file, write a small JSON `{productId: "<Strain Species value>"}`
+  for the in-stock products instead. Pass these as `agg(path, product_files, species_files)`: each item
+  then has `type` = the menu type from the variant field "Strain Species" (Indica → Indica, Sativa →
+  Sativa, 50/50 → Hybrid, Indica-dom → Indica Dom. Hybrid, Sativa-dom → Sativa Dom. Hybrid), or None.
 - `manage_deals` list: the deals that are active today.
 
 ## 3. Update kit/data.json
@@ -42,16 +48,21 @@ Rules, in order:
 1. **Sold out** (no For Sale stock) → remove that size; remove the item when no sizes are left.
 2. **Price** → `p` = Flowhub price. If an active deal covers the product, `s` = discounted price
    (round to whole cents) and `badge` = "NN% OFF"; otherwise `s` = null and `badge` = null.
-3. **New in-stock product** not on the menu → add it. Taste/feel/type from the Flowhub description,
-   else a quick web search of the strain, best effort, 3 words each. Image: reuse an existing
+3. **New in-stock product** not on the menu → add it. Type (`t`) from Flowhub Strain Species (the `type`
+   that `agg` gives); only when that is blank, from the description, else a web search. Taste/feel from
+   the Flowhub description, else a quick web search of the strain, best effort, 3 words each. Image: reuse an existing
    `img/` file of the same product line (same brand + package style) if one fits; otherwise
    `img/placeholder.jpg`. Never invent prices or THC.
 4. **THC** → `thc` = the THC that `agg` gives (batch first, then product page). Also fill in `thc` on an
    existing item whose `thc` is null once a value is available. Leave it null if Flowhub has none.
-5. Skip samples, display units, $0 items, accessories, and non-cannabis products.
-6. **Ticker** (`ticker` array, HTML allowed: `<b>NN% OFF</b> what`) → one line per active
+5. **Type** → when Flowhub Strain Species is set, `t` = that mapped value, on existing items too: correct
+   any item whose `t` differs (Flowhub is the source of truth; the owner fixes types there). When Strain
+   Species is blank, leave the existing `t` alone.
+6. Skip samples, display units, $0 items, accessories, and non-cannabis products.
+7. **Ticker** (`ticker` array, HTML allowed: `<b>NN% OFF</b> what`) → one line per active
    customer-facing deal, short and plain, like the existing lines. Remove lines for ended deals.
-Change nothing else (layout, titles, wording of untouched items). Keep the `theme` value exactly as it is
+Change nothing else (layout, titles, wording of untouched items).
+Report any type corrections in the summary (item: old → new). Keep the `theme` value exactly as it is
 (e.g. "green-wednesday" or ""); only the owner switches themes. Likewise keep `bezel` (the gap between TVs) as is.
 
 ## 4. Render and publish (only if something changed)

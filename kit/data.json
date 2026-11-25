@@ -93,7 +93,7 @@
   {
    "n": "Giraffe P",
    "b": "Float Cannabis",
-   "t": "Indica",
+   "t": "Indica Dom. Hybrid",
    "thc": 17.36,
    "fl": "Apricot \u2022 Creamy \u2022 Diesel",
    "ef": "Happy \u2022 Relaxed \u2022 Euphoric",
@@ -293,7 +293,7 @@
   {
    "n": "Toad Venom",
    "b": "Float Cannabis",
-   "t": "Indica",
+   "t": "Indica Dom. Hybrid",
    "thc": 17.053,
    "fl": "Diesel \u2022 Mint \u2022 Earthy",
    "ef": "Relaxed \u2022 Euphoric \u2022 Happy",
@@ -316,7 +316,7 @@
   {
    "n": "Turtle Taffy",
    "b": "Northpark Cannabis Co.",
-   "t": "Hybrid",
+   "t": "Indica Dom. Hybrid",
    "thc": 15.8,
    "fl": "Sweet \u2022 Creamy \u2022 Gassy",
    "ef": "Happy \u2022 Relaxed \u2022 Euphoric",
@@ -498,7 +498,7 @@
   {
    "n": "Green Diesel",
    "b": "Float Cannabis",
-   "t": "Hybrid",
+   "t": "Sativa Dom. Hybrid",
    "thc": 23.106,
    "fl": "Fuel \u2022 Pine \u2022 Citrus",
    "ef": "Euphoric \u2022 Focused \u2022 Relaxed",
@@ -516,7 +516,7 @@
   {
    "n": "Night Hawk",
    "b": "Minny Grown",
-   "t": "Indica Dom. Hybrid",
+   "t": "Indica",
    "thc": 18.7,
    "fl": "Citrus \u2022 Zest \u2022 Forest Pine",
    "ef": "Relaxed \u2022 Calm \u2022 Body Relief",
@@ -649,7 +649,7 @@
   {
    "n": "Pineapple Express",
    "b": "Northpark",
-   "t": "Sativa Dom. Hybrid",
+   "t": "Sativa",
    "thc": 82.785,
    "fl": "Pineapple \u2022 Citrus \u2022 Pine",
    "ef": "Uplifted \u2022 Euphoric \u2022 Creative",

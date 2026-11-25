@@ -21,7 +21,28 @@ def product_thc(paths):
         if t is not None: out[prod['id']]=t
     return out
 
-def agg(path, product_paths=()):
+SPECIES={'indica':'Indica','sativa':'Sativa','50/50':'Hybrid','hybrid':'Hybrid',
+         'indica-dom':'Indica Dom. Hybrid','sativa-dom':'Sativa Dom. Hybrid'}
+
+def species(paths):
+    """Saved manage_products list results (return_fields id, name, brand, variants { fields { name value } })
+    -> {productId: menu type} from the variant field 'Strain Species'. A file may instead hold a plain
+    JSON object {productId: "Indica-dom", ...}. Unknown or blank values are left out."""
+    out={}
+    for p in paths:
+        j=json.load(open(p))
+        if 'data' in j:
+            for prod in j['data']['products']:
+                for var in prod.get('variants') or []:
+                    v={x['name']:x['value'] for x in var.get('fields') or []}.get('Strain Species')
+                    if v and v.strip().lower() in SPECIES:
+                        out[prod['id']]=SPECIES[v.strip().lower()]; break
+        else:
+            for pid,v in j.items():
+                if v and v.strip().lower() in SPECIES: out[pid]=SPECIES[v.strip().lower()]
+    return out
+
+def agg(path, product_paths=(), species_paths=()):
     """In-stock variants. THC comes from the batch's 'Total % THC'; when blank, from the product page's
     '% THC' (pass saved manage_products get results for those products as product_paths)."""
     rows=json.load(open(path))['data']['inventory']
@@ -34,8 +55,10 @@ def agg(path, product_paths=()):
             e['price']=r['pricing']['preTaxPrice'] if r.get('pricing') else e['price']
             e['thc']=_thc(r['fields']) or e['thc']
     pt=product_thc(product_paths)
+    sp=species(species_paths)
     for e in v.values():
         if e['thc'] is None: e['thc']=pt.get(e['pid'])
+        e['type']=sp.get(e['pid'])          # menu `t` from Flowhub Strain Species (None if not set)
     return {k:x for k,x in v.items() if x['q']>0}
 
 def missing_thc(path):
