@@ -27,12 +27,12 @@
    "ef": "Potent \u2022 Relaxed \u2022 Calm",
    "img": "img/flower-runtz.jpg",
    "chip": null,
-   "badge": "20% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "7g",
      "p": 10200,
-     "s": 8160
+     "s": null
     }
    ]
   },
@@ -45,12 +45,12 @@
    "ef": "Uplifted \u2022 Creative \u2022 Focused",
    "img": "img/flower-runtz.jpg",
    "chip": null,
-   "badge": "20% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "3.5g",
      "p": 5000,
-     "s": 4000
+     "s": null
     }
    ]
   },
@@ -235,17 +235,17 @@
    "ef": "Euphoric \u2022 Calm \u2022 Relaxed",
    "img": "img/flower-runtz.jpg",
    "chip": null,
-   "badge": "20% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "3.5g",
      "p": 5000,
-     "s": 4000
+     "s": null
     },
     {
      "l": "7g",
      "p": 8900,
-     "s": 7120
+     "s": null
     }
    ]
   },
@@ -276,17 +276,17 @@
    "ef": "Uplifted \u2022 Energetic \u2022 Happy",
    "img": "img/flower-runtz.jpg",
    "chip": null,
-   "badge": "20% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "3.5g",
      "p": 4900,
-     "s": 3920
+     "s": null
     },
     {
      "l": "7g",
      "p": 8900,
-     "s": 7120
+     "s": null
     }
    ]
   },
@@ -468,12 +468,12 @@
    "ef": "Uplifting \u2022 Happy \u2022 Relaxed",
    "img": "img/prerolls-gov-oranges-alpha.jpg",
    "chip": null,
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": ".35g",
      "p": 900,
-     "s": 765
+     "s": null
     }
    ]
   },
@@ -486,12 +486,12 @@
    "ef": "Euphoric \u2022 Happy \u2022 Relaxed",
    "img": "img/prerolls-gov-oranges-sour.jpg",
    "chip": null,
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "2-Pack .7g",
      "p": 1500,
-     "s": 1275
+     "s": null
     }
    ]
   },
@@ -540,17 +540,17 @@
    "ef": "Happy \u2022 Relaxed \u2022 Euphoric",
    "img": "img/prerolls-turtle-taffy.jpg",
    "chip": null,
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "2-Pack .7g",
      "p": 1500,
-     "s": 1275
+     "s": null
     },
     {
      "l": "8-Pack 2.8g",
      "p": 5000,
-     "s": 4250
+     "s": null
     }
    ]
   },
@@ -583,12 +583,12 @@
    "ef": "Relaxed \u2022 Euphoric \u2022 Uplifted",
    "img": "img/vapes-og-kush-1g-cart.jpg",
    "chip": "1G CART",
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "1g",
      "p": 6999,
-     "s": 5949
+     "s": null
     }
    ]
   },
@@ -601,12 +601,12 @@
    "ef": "Energetic \u2022 Creative \u2022 Clear",
    "img": "img/vapes-super-sour-diesel-1g-cart.jpg",
    "chip": "1G CART",
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "1g",
      "p": 6999,
-     "s": 5949
+     "s": null
     }
    ]
   },
@@ -619,12 +619,12 @@
    "ef": "Uplifted \u2022 Euphoric \u2022 Creative",
    "img": "img/vapes-trainwreck-1g-cart.jpg",
    "chip": "1G CART",
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "1g",
      "p": 6999,
-     "s": 5949
+     "s": null
     }
    ]
   },
@@ -637,12 +637,12 @@
    "ef": "Relaxed \u2022 Calm \u2022 Happy",
    "img": "img/vapes-dabbalicious-1g-disposable.jpg",
    "chip": "1G DISPOSABLE",
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "1g",
      "p": 7499,
-     "s": 6374
+     "s": null
     }
    ]
   },
@@ -655,12 +655,12 @@
    "ef": "Uplifted \u2022 Euphoric \u2022 Creative",
    "img": "img/vapes-pineapple-express-1g-disposable.jpg",
    "chip": "1G DISPOSABLE",
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "1g",
      "p": 7499,
-     "s": 6374
+     "s": null
     }
    ]
   },
@@ -673,12 +673,12 @@
    "ef": "Uplifted \u2022 Euphoric \u2022 Creative",
    "img": "img/vapes-trainwreck-1g-disposable.jpg",
    "chip": "1G DISPOSABLE",
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "1g",
      "p": 7499,
-     "s": 6374
+     "s": null
     }
    ]
   },
@@ -691,12 +691,12 @@
    "ef": "Euphoric \u2022 Uplifted \u2022 Relaxed",
    "img": "img/vapes-blue-zushi-hash-rosin-disposable.jpg",
    "chip": "HASH ROSIN DISPOSABLE",
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": ".5g",
      "p": 6000,
-     "s": 5100
+     "s": null
     }
    ]
   },
@@ -709,12 +709,12 @@
    "ef": "Euphoric \u2022 Creative \u2022 Giggly",
    "img": "img/vapes-lemon-yacht-club-hash-rosin-disposable.jpg",
    "chip": "HASH ROSIN DISPOSABLE",
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": ".5g",
      "p": 6000,
-     "s": 5100
+     "s": null
     }
    ]
   },
@@ -727,12 +727,12 @@
    "ef": "Giggly \u2022 Focused \u2022 Calm",
    "img": "img/vapes-mexican-flan-hash-rosin-disposable.jpg",
    "chip": "HASH ROSIN DISPOSABLE",
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": ".5g",
      "p": 6000,
-     "s": 5100
+     "s": null
     }
    ]
   },
@@ -745,12 +745,12 @@
    "ef": "Uplifted \u2022 Alert \u2022 Relaxed",
    "img": "img/vapes-strawberry-lemonade-hash-rosin-disposable.jpg",
    "chip": "HASH ROSIN DISPOSABLE",
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": ".5g",
      "p": 6000,
-     "s": 5100
+     "s": null
     }
    ]
   },
@@ -763,12 +763,12 @@
    "ef": "Euphoric \u2022 Happy \u2022 Heavy",
    "img": "img/vapes-toad-venom-hash-rosin-disposable.jpg",
    "chip": "HASH ROSIN DISPOSABLE",
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": ".5g",
      "p": 6000,
-     "s": 5100
+     "s": null
     }
    ]
   },
@@ -781,12 +781,12 @@
    "ef": "Euphoric \u2022 Happy \u2022 Relaxed",
    "img": "img/vapes-banana-push-pop-x-gummi-bear-live-rosin.jpg",
    "chip": "LIVE ROSIN",
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": ".5g",
      "p": 6500,
-     "s": 5525
+     "s": null
     }
    ]
   },
@@ -799,12 +799,12 @@
    "ef": "Happy \u2022 Relaxed \u2022 Balanced",
    "img": "img/vapes-banana-push-pop-x-gummi-bear-live-rosin.jpg",
    "chip": "LIVE ROSIN",
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": ".5g",
      "p": 6500,
-     "s": 5525
+     "s": null
     }
    ]
   },
@@ -817,12 +817,12 @@
    "ef": "Uplifted \u2022 Calm \u2022 Relaxed",
    "img": "img/vapes-banana-push-pop-x-gummi-bear-live-rosin.jpg",
    "chip": "LIVE ROSIN",
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": ".5g",
      "p": 6500,
-     "s": 5525
+     "s": null
     }
    ]
   }
@@ -838,12 +838,12 @@
    "ef": "",
    "img": "img/edibles-aurora-borealis-beary-bliss.jpg",
    "chip": null,
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "20 ct",
      "p": 5600,
-     "s": 4760
+     "s": null
     }
    ]
   },
@@ -857,12 +857,12 @@
    "ef": "",
    "img": "img/edibles-boundary-waters-bluebeary.jpg",
    "chip": null,
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "20 ct",
      "p": 5600,
-     "s": 4760
+     "s": null
     }
    ]
   },
@@ -876,12 +876,12 @@
    "ef": "",
    "img": "img/edibles-groovy-pebbles.jpg",
    "chip": null,
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "20 ct",
      "p": 5800,
-     "s": 4930
+     "s": null
     }
    ]
   },
@@ -895,12 +895,12 @@
    "ef": "",
    "img": "img/edibles-lemon-lift.jpg",
    "chip": null,
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "20 ct",
      "p": 5800,
-     "s": 4930
+     "s": null
     }
    ]
   },
@@ -914,12 +914,12 @@
    "ef": "",
    "img": "img/edibles-sky-high-watermelon.jpg",
    "chip": null,
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "20 ct",
      "p": 5600,
-     "s": 4760
+     "s": null
     }
    ]
   },
@@ -933,27 +933,24 @@
    "ef": "",
    "img": "img/edibles-st-croix-tropical-sunrise.jpg",
    "chip": null,
-   "badge": "15% OFF",
+   "badge": null,
    "sizes": [
     {
      "l": "20 ct",
      "p": 5600,
-     "s": 4760
+     "s": null
     }
    ]
   }
  ],
  "ticker": [
-  "<b>GREEN WEDNESDAY</b> deals all day \u00b7 Wed 11/25 only",
-  "<b>20% OFF</b> all Campfire Cannabis flower",
-  "<b>15% OFF</b> all vapes, carts & concentrates",
-  "<b>15% OFF</b> all cannabis edibles",
-  "<b>15% OFF</b> Fl\u00f6r prerolls",
-  "<b>30% OFF</b> all hemp edibles & THC drinks",
   "<b>15% OFF</b> Cap Junky \u00b7 Sunset Tea \u00b7 Gummibears \u00b7 Froot by the Foot",
   "<b>40% OFF</b> Fog Dog 3-pack prerolls",
   "<b>20% OFF</b> Purple Octane 3.5g & 7g",
   "<b>15% OFF</b> Float prepacked chillums",
+  "<b>20% OFF</b> Lumi, Nothing But Canna & North hemp edibles",
+  "<b>20% OFF</b> Cycling Frog gummies",
+  "<b>25% OFF</b> any 4+ THC drinks, mix & match",
   "<b>50% OFF</b> short-dated Wyld Huckleberry & Marionberry gummies \u00b7 while they last",
   "<b>50% OFF</b> select THC drinks \u00b7 while they last"
  ],
