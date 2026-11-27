@@ -223,8 +223,8 @@ function slideHTML(s) {
       <div class="cols"><div class="col">${items.slice(0, half).map(rowHTML).join("")}</div><div class="col">${items.slice(half).map(rowHTML).join("")}</div></div>`;
   }
   if (s.kind === "promo") {
-    return `<div class="kick">The day before Thanksgiving</div><div class="w1">Green</div><div class="w2">Wednesday</div>
-      <div class="d">Wed 11/25</div><div class="s">Deals all day long in store</div>`;
+    return `<div class="kick">Shop local all weekend</div><div class="w1">Black</div><div class="w2">Friday</div>
+      <div class="d">Fri 11/27 – Sun 11/29</div><div class="s">Black Friday Weekend deals in store</div>`;
   }
   const m = s.badge.match(/^(\d+%)\s*OFF\s*(.*)$/i);
   const big = m ? `<em>${esc(m[1])}</em> OFF` : esc(s.badge);

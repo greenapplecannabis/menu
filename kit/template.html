@@ -211,9 +211,9 @@ body.theme-green-wednesday { --gold: #E8945A; --cream: #F3E6CC; }
     <div class="bezel a"></div><div class="bezel b"></div>
     <div class="ad" id="gwad">
       <div class="rule t"></div><div class="rule b"></div>
-      <div class="blk b0"><div class="kicker anim">The day before Thanksgiving</div><div class="word anim">Green</div></div>
-      <div class="blk b1"><div class="word anim">Wednesday</div><img class="logoBig anim" src="img/logo.png" alt=""></div>
-      <div class="blk b2"><div class="kicker anim">Save the date</div><div class="date anim">Wed 11/25</div><div class="sub anim">Deals all day long<br>in store</div><div class="tag anim">GREEN APPLE CANNABIS</div></div>
+      <div class="blk b0"><div class="kicker anim">Shop local all weekend</div><div class="word anim">Black</div></div>
+      <div class="blk b1"><div class="word anim">Friday</div><img class="logoBig anim" src="img/logo.png" alt=""></div>
+      <div class="blk b2"><div class="kicker anim">Black Friday Weekend</div><div class="date anim">11/27–11/29</div><div class="sub anim">Deals all weekend<br>in store</div><div class="tag anim">GREEN APPLE CANNABIS</div></div>
       <div id="leaves"></div>
     </div>
     
@@ -278,7 +278,7 @@ function frame(i) {
   const cat = scr.dataset.cat;
   scr.innerHTML = `<div class="head"><h2>${TITLES[cat][0]}<small>${TITLES[cat][1]}</small></h2>
     ${i === 1 ? '<img class="logo" src="img/logo.png" alt="Green Apple Cannabis">' : ""}
-    <div class="right"><div class="gwtag"><span class="leafi"></span>Green Wednesday<b>Wed 11/25</b></div><div class="dots"></div></div></div><div class="cards on"></div><div class="cards off"></div>`;
+    <div class="right"><div class="gwtag"><span class="leafi"></span>Black Friday Weekend<b>11/27–11/29</b></div><div class="dots"></div></div></div><div class="cards on"></div><div class="cards off"></div>`;
   scr.dataset.built = String(DATA_VERSION); built[i] = -1; shown[i] = -1;
   return scr;
 }
