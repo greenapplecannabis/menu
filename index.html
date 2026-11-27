@@ -314,7 +314,7 @@ function turnsAt(t) { return Math.floor(t / SECONDS); }
 const clamp = x => Math.max(0, Math.min(1, x));
 const easeOut = x => 1 - Math.pow(1 - x, 3);
 
-const TICKER = ["<b>BLACK FRIDAY WEEKEND</b> deals · Fri 11/27 – Sun 11/29", "<b>20% OFF</b> all Campfire Cannabis flower", "<b>15% OFF</b> all vapes, carts & concentrates", "<b>15% OFF</b> all cannabis edibles", "<b>15% OFF</b> Flör prerolls", "<b>30% OFF</b> all hemp edibles & THC drinks", "Small Business Saturday 11/28 · thanks for shopping local!", "<b>15% OFF</b> Cap Junky · Sunset Tea · Gummibears · Froot by the Foot", "<b>40% OFF</b> Fog Dog 3-pack prerolls", "<b>20% OFF</b> Purple Octane 3.5g & 7g", "<b>15% OFF</b> Float prepacked chillums", "<b>50% OFF</b> short-dated Wyld Huckleberry & Marionberry gummies · while they last", "<b>50% OFF</b> select THC drinks · while they last"];
+const TICKER = ["<b>BLACK FRIDAY WEEKEND</b> deals · Fri 11/27 – Sun 11/29", "<b>20% OFF</b> all Campfire Cannabis flower, incl. Purple Octane", "<b>15% OFF</b> all vapes, carts & concentrates", "<b>15% OFF</b> all cannabis edibles", "<b>15% OFF</b> Flör prerolls", "<b>30% OFF</b> all hemp edibles & THC drinks", "Small Business Saturday 11/28 · thanks for shopping local!", "<b>15% OFF</b> Cap Junky · Sunset Tea · Gummibears · Froot by the Foot", "<b>40% OFF</b> Fog Dog 3-pack prerolls", "<b>15% OFF</b> Float prepacked chillums", "<b>50% OFF</b> short-dated Wyld Huckleberry & Marionberry gummies · while they last", "<b>50% OFF</b> select THC drinks · while they last"];
 const track = document.getElementById("track");
 function setTicker(list) { track.innerHTML = [...list, ...list, ...list, ...list].map(x => `<span class="it">${x}</span><i class="sep"></i>`).join(""); }
 setTicker(TICKER);
